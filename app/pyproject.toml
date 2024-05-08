@@ -1,0 +1,23 @@
+[project]
+name = "backend"
+version = "1.0.0"
+description = "Demo Chat Application to demonstrate retrieval augmented generation using Azure Open AI, Azure Cosmos DB for MongoDB vCore, and lang chain."
+dependencies = [
+    "Quart",
+    "python-dotenv",
+    "Hypercorn",
+    ]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pre-commit",
+    "ruff",
+    "black",
+    "mypy",
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
