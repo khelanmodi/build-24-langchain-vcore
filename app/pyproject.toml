@@ -6,10 +6,15 @@ dependencies = [
     "Quart",
     "python-dotenv",
     "Hypercorn",
+    "langchain",
+    "langchain_openai",
     ]
 
 [project.optional-dependencies]
 dev = [
+    "pymongo",
+    "jq",
+    "ipykernel",
     "pytest",
     "pytest-cov",
     "pre-commit",
