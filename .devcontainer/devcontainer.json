@@ -17,6 +17,7 @@
                 "charliermarsh.ruff",
                 "ms-azuretools.vscode-bicep",
                 "ms-azuretools.azure-dev",
+                "mongodb.mongodb-vscode",
                 "esbenp.prettier-vscode"
             ],
             "settings": {
