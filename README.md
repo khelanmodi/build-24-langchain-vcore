@@ -14,7 +14,7 @@ The demo will feature a streamlined ordering system tailored for various food ch
 1. **Initialize and activate a virtualenv using:**
 
     ```bash
-    python -m venv .venv
+    python3 -m venv .venv
     source .venv/bin/activate
     ```
 
