@@ -9,10 +9,10 @@
             "type": "debugpy",
             "request": "launch",
             "module": "quart",
-            "cwd": "${workspaceFolder}/app/backend",
+            "cwd": "${workspaceFolder}/app",
             "python": "${workspaceFolder}/.venv/bin/python",
             "env": {
-                "QUART_APP": "app",
+                "QUART_APP": "backend",
                 "QUART_ENV": "development",
                 "QUART_DEBUG": "0"
             },
