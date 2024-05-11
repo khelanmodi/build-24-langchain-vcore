@@ -1,4 +1,3 @@
-import json
 from typing import Any
 
 from quart import Quart, Response, jsonify, request
@@ -29,10 +28,15 @@ def create_app(app_config: AppConfig, test_config=None):
         if retrieval_mode == "vectors":
             collection_name = "johncosmoscollection"
             answer = [
-                json.loads(answer.page_content)
-                for answer in app_config.setup.vector_search.run(collection_name, messages[0]["content"])
+                {
+                    "message": {"content": answer.page_content, "role": "system"},
+                    "index": answer.metadata.get("seq_num"),
+                    "context": {"data_points": [], "thoughts": []},
+                    "source": answer.metadata.get("source"),
+                }
+                for answer in app_config.setup.vector_search.run(collection_name, messages[-1]["content"])
             ]
-            return jsonify({"answers": answer})
+            return jsonify({"choices": answer})
         return jsonify({"error": "Not Implemented!\nMessage: " + body["messages"][0]["content"]}), 400
 
     @app.route("/ask", methods=["POST"])
