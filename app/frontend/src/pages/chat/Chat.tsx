@@ -219,7 +219,6 @@ const Chat = () => {
                                                 onCitationClicked={(c) => onShowCitation(c, index)}
                                                 onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
                                                 onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
-                                                onFollowupQuestionClicked={(q) => makeApiRequest(q)}
                                             />
                                         </div>
                                     </div>
@@ -237,7 +236,6 @@ const Chat = () => {
                                                 onCitationClicked={(c) => onShowCitation(c, index)}
                                                 onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
                                                 onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
-                                                onFollowupQuestionClicked={(q) => makeApiRequest(q)}
                                             />
                                         </div>
                                     </div>

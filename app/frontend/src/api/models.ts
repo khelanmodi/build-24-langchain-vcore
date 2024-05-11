@@ -26,7 +26,6 @@ export type Thoughts = {
 
 export type ResponseContext = {
     data_points: string[];
-    followup_questions: string[] | null;
     thoughts: Thoughts[];
 };
 
