@@ -42,10 +42,12 @@
         }
     },
     "forwardPorts": [
-        5000
+        5000,
+        5173
     ],
     "portsAttributes": {
-        "5000": {"label": "Web port", "onAutoForward": "notify"}
+        "5000": {"label": "Backend port", "onAutoForward": "notify"},
+        "5173": {"label": "Frontend port", "onAutoForward": "notify"}
     },
     "postCreateCommand": ". .devcontainer/setup.sh"
 }
