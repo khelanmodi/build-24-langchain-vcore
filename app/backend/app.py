@@ -1,3 +1,4 @@
+import json
 from typing import Any
 
 from quart import Quart, Response, jsonify, request
@@ -29,7 +30,7 @@ def create_app(app_config: AppConfig, test_config=None):
             collection_name = "johncosmoscollection"
             answer = [
                 {
-                    "message": {"content": answer.page_content, "role": "system"},
+                    "message": {"content": json.loads(answer.page_content)["description"], "role": "assistant"},
                     "index": answer.metadata.get("seq_num"),
                     "context": {"data_points": [], "thoughts": []},
                     "source": answer.metadata.get("source"),
