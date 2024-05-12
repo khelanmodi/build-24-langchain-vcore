@@ -28,15 +28,22 @@ def create_app(app_config: AppConfig, test_config=None):
         retrieval_mode = context.get("overrides", {}).get("retrieval_mode")
         if retrieval_mode == "vectors":
             collection_name = "johncosmoscollection"
+            vector_response = app_config.setup.vector_search.run(collection_name, messages[-1]["content"])
             answer = [
                 {
-                    "message": {"content": json.loads(answer.page_content)["description"], "role": "assistant"},
-                    "index": answer.metadata.get("seq_num"),
-                    "context": {"data_points": [], "thoughts": []},
-                    "source": answer.metadata.get("source"),
+                    "context": {
+                        "data_points": {"json": []},
+                        "thoughts": [{"description": vector_response[0].metadata.get("source"), "title": "Source"}],
+                    },
+                    "index": vector_response[0].metadata.get("seq_num"),
+                    "message": {
+                        "content": json.loads(vector_response[0].page_content).get("description"),
+                        "role": "assistant",
+                    },
                 }
-                for answer in app_config.setup.vector_search.run(collection_name, messages[-1]["content"])
             ]
+            for res in vector_response:
+                answer[0]["context"]["data_points"]["json"].append(json.loads(res.page_content))
             return jsonify({"choices": answer})
         return jsonify({"error": "Not Implemented!\nMessage: " + body["messages"][0]["content"]}), 400
 
