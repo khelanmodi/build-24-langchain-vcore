@@ -105,8 +105,6 @@ const Chat = () => {
                         retrieval_mode: retrievalMode,
                     },
                 },
-                // ChatAppProtocol: Client must pass on any session state received from the server
-                session_state: answers.length ? answers[answers.length - 1][1].choices[0].session_state : null,
             };
 
             const response = await chatApi(request);
@@ -320,7 +318,10 @@ const Chat = () => {
                         onChange={onRetrieveCountChange}
                     />
 
-                    <VectorSettings updateRetrievalMode={(retrievalMode: RetrievalMode) => setRetrievalMode(retrievalMode)} />
+                    <VectorSettings
+                        defaultRetrievalMode={retrievalMode}
+                        updateRetrievalMode={(retrievalMode: RetrievalMode) => setRetrievalMode(retrievalMode)}
+                    />
 
                     <Checkbox
                         className={styles.chatSettingsSeparator}

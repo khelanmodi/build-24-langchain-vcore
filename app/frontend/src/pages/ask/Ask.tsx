@@ -56,8 +56,6 @@ export function Component(): JSX.Element {
                         retrieval_mode: retrievalMode,
                     },
                 },
-                // ChatAppProtocol: Client must pass on any session state received from the server
-                session_state: answer ? answer.choices[0].session_state : null,
             };
             const result = await askApi(request);
             setAnswer(result);
@@ -204,7 +202,7 @@ export function Component(): JSX.Element {
                     onChange={onRetrieveCountChange}
                 />
 
-                <VectorSettings updateRetrievalMode={(retrievalMode: RetrievalMode) => setRetrievalMode(retrievalMode)} />
+                <VectorSettings defaultRetrievalMode={retrievalMode} updateRetrievalMode={(retrievalMode: RetrievalMode) => setRetrievalMode(retrievalMode)} />
             </Panel>
         </div>
     );
