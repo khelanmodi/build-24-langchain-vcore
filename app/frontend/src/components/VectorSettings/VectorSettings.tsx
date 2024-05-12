@@ -23,9 +23,9 @@ export const VectorSettings = ({ updateRetrievalMode, defaultRetrievalMode }: Pr
                 selectedKey={defaultRetrievalMode.toString()}
                 label="Retrieval mode"
                 options={[
-                    { key: "hybrid", text: "Vectors + Text (Hybrid)", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
-                    { key: "vectors", text: "Vectors", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
-                    { key: "text", text: "Text", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text },
+                    { key: "rag", text: "RAG with Vector Search", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
+                    { key: "vector", text: "Vector Search", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
+                    { key: "keyword", text: "Keyword Search", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text },
                 ]}
                 required
                 onChange={onRetrievalModeChange}

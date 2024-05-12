@@ -26,7 +26,7 @@ def create_app(app_config: AppConfig, test_config=None):
         # stream = body.get("stream", False)
         context = body.get("context", {})
         retrieval_mode = context.get("overrides", {}).get("retrieval_mode")
-        if retrieval_mode == "vectors":
+        if retrieval_mode == "vector":
             collection_name = "johncosmoscollection"
             vector_response = app_config.setup.vector_search.run(collection_name, messages[-1]["content"])
             answer = [
