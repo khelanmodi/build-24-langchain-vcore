@@ -30,7 +30,6 @@ const Chat = () => {
     const [isStreaming, setIsStreaming] = useState<boolean>(false);
     const [error, setError] = useState<unknown>();
 
-    const [activeCitation, setActiveCitation] = useState<string>();
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
@@ -85,7 +84,6 @@ const Chat = () => {
 
         error && setError(undefined);
         setIsLoading(true);
-        setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
 
         try {
@@ -131,7 +129,6 @@ const Chat = () => {
     const clearChat = () => {
         lastQuestionRef.current = "";
         error && setError(undefined);
-        setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
         setAnswers([]);
         setStreamedAnswers([]);
@@ -164,17 +161,6 @@ const Chat = () => {
 
     const onExampleClicked = (example: string) => {
         makeApiRequest(example);
-    };
-
-    const onShowCitation = (citation: string, index: number) => {
-        if (activeCitation === citation && activeAnalysisPanelTab === AnalysisPanelTabs.CitationTab && selectedAnswer === index) {
-            setActiveAnalysisPanelTab(undefined);
-        } else {
-            setActiveCitation(citation);
-            setActiveAnalysisPanelTab(AnalysisPanelTabs.CitationTab);
-        }
-
-        setSelectedAnswer(index);
     };
 
     const onToggleTab = (tab: AnalysisPanelTabs, index: number) => {
@@ -214,7 +200,6 @@ const Chat = () => {
                                                 key={index}
                                                 answer={streamedAnswer[1]}
                                                 isSelected={false}
-                                                onCitationClicked={(c) => onShowCitation(c, index)}
                                                 onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
                                                 onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
                                             />
@@ -231,7 +216,6 @@ const Chat = () => {
                                                 key={index}
                                                 answer={answer[1]}
                                                 isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
-                                                onCitationClicked={(c) => onShowCitation(c, index)}
                                                 onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
                                                 onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
                                             />
@@ -271,9 +255,7 @@ const Chat = () => {
                 {answers.length > 0 && activeAnalysisPanelTab && (
                     <AnalysisPanel
                         className={styles.chatAnalysisPanel}
-                        activeCitation={activeCitation}
                         onActiveTabChanged={(x) => onToggleTab(x, selectedAnswer)}
-                        citationHeight="810px"
                         answer={answers[selectedAnswer][1]}
                         activeTab={activeAnalysisPanelTab}
                     />

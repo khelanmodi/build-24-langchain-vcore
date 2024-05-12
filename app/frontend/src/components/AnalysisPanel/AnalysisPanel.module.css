@@ -56,9 +56,3 @@
     border-radius: 10px;
     margin-bottom: 8px;
 }
-
-.citationImg {
-    height: 450px;
-    max-width: 100%;
-    object-fit: contain;
-}

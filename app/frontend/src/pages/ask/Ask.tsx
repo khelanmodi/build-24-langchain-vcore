@@ -26,8 +26,6 @@ export function Component(): JSX.Element {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<unknown>();
     const [answer, setAnswer] = useState<ChatAppResponse>();
-
-    const [activeCitation, setActiveCitation] = useState<string>();
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
 
     const makeApiRequest = async (question: string) => {
@@ -35,7 +33,6 @@ export function Component(): JSX.Element {
 
         error && setError(undefined);
         setIsLoading(true);
-        setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
 
         try {
@@ -99,15 +96,6 @@ export function Component(): JSX.Element {
         setQuestion(example);
     };
 
-    const onShowCitation = (citation: string) => {
-        if (activeCitation === citation && activeAnalysisPanelTab === AnalysisPanelTabs.CitationTab) {
-            setActiveAnalysisPanelTab(undefined);
-        } else {
-            setActiveCitation(citation);
-            setActiveAnalysisPanelTab(AnalysisPanelTabs.CitationTab);
-        }
-    };
-
     const onToggleTab = (tab: AnalysisPanelTabs) => {
         if (activeAnalysisPanelTab === tab) {
             setActiveAnalysisPanelTab(undefined);
@@ -140,7 +128,6 @@ export function Component(): JSX.Element {
                         <Answer
                             answer={answer}
                             isStreaming={false}
-                            onCitationClicked={(x) => onShowCitation(x)}
                             onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab)}
                             onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab)}
                         />
@@ -154,9 +141,7 @@ export function Component(): JSX.Element {
                 {activeAnalysisPanelTab && answer && (
                     <AnalysisPanel
                         className={styles.askAnalysisPanel}
-                        activeCitation={activeCitation}
                         onActiveTabChanged={(x) => onToggleTab(x)}
-                        citationHeight="600px"
                         answer={answer}
                         activeTab={activeAnalysisPanelTab}
                     />
