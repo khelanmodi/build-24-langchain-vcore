@@ -25,7 +25,7 @@ export type Thoughts = {
 };
 
 export type ResponseContext = {
-    data_points: string[];
+    data_points: any[];
     thoughts: Thoughts[];
 };
 

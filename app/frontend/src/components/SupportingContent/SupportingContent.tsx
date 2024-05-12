@@ -3,12 +3,11 @@ import { parseSupportingContentItem } from "./SupportingContentParser";
 import styles from "./SupportingContent.module.css";
 
 interface Props {
-    supportingContent: string[] | { text: string[]; images?: { url: string }[] };
+    supportingContent: string[] | { json: string[] };
 }
 
 export const SupportingContent = ({ supportingContent }: Props) => {
-    const textItems = Array.isArray(supportingContent) ? supportingContent : supportingContent.text;
-    const imageItems = !Array.isArray(supportingContent) ? supportingContent?.images : [];
+    const textItems = Array.isArray(supportingContent) ? supportingContent : supportingContent.json;
     return (
         <ul className={styles.supportingContentNavList}>
             {textItems.map((c, ind) => {
@@ -19,9 +18,6 @@ export const SupportingContent = ({ supportingContent }: Props) => {
                         <p className={styles.supportingContentItemText} dangerouslySetInnerHTML={{ __html: parsed.content }} />
                     </li>
                 );
-            })}
-            {imageItems?.map((img, ind) => {
-                return <img className={styles.supportingContentItemImage} src={img.url} key={ind} />;
             })}
         </ul>
     );
