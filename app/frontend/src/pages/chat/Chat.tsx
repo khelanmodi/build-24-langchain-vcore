@@ -17,9 +17,9 @@ import { VectorSettings } from "../../components/VectorSettings";
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
-    const [promptTemplate, setPromptTemplate] = useState<string>("");
     const [temperature, setTemperature] = useState<number>(0.3);
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
+    const [scoreThreshold, setScoreThreshold] = useState<number>(0.5);
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
     const [shouldStream, setShouldStream] = useState<boolean>(false);
 
@@ -97,7 +97,7 @@ const Chat = () => {
                 stream: shouldStream,
                 context: {
                     overrides: {
-                        prompt_template: promptTemplate.length === 0 ? undefined : promptTemplate,
+                        score_threshold: scoreThreshold,
                         top: retrieveCount,
                         temperature: temperature,
                         retrieval_mode: retrievalMode,
@@ -139,16 +139,20 @@ const Chat = () => {
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "auto" }), [streamedAnswers]);
 
-    const onPromptTemplateChange = (_ev?: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setPromptTemplate(newValue || "");
-    };
-
     const onTemperatureChange = (
         newValue: number,
         range?: [number, number],
         event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent,
     ) => {
         setTemperature(newValue);
+    };
+
+    const onScoreThresholdChange = (
+        newValue: number,
+        range?: [number, number],
+        event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent,
+    ) => {
+        setScoreThreshold(newValue);
     };
 
     const onRetrieveCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
@@ -184,7 +188,7 @@ const Chat = () => {
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
+                            <h1 className={styles.chatEmptyStateTitle}>FlavorGenius: Chat, Input, Discover</h1>
                             <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>
@@ -245,7 +249,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
+                            placeholder="Type a new question (e.g. Are there any high protein recipes available?)"
                             disabled={isLoading}
                             onSend={(question) => makeApiRequest(question)}
                         />
@@ -270,15 +274,6 @@ const Chat = () => {
                     onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
                     isFooterAtBottom={true}
                 >
-                    <TextField
-                        className={styles.chatSettingsSeparator}
-                        defaultValue={promptTemplate}
-                        label="Override prompt template"
-                        multiline
-                        autoAdjustHeight
-                        onChange={onPromptTemplateChange}
-                    />
-
                     <Slider
                         className={styles.chatSettingsSeparator}
                         label="Temperature"
@@ -291,11 +286,23 @@ const Chat = () => {
                         snapToStep
                     />
 
+                    <Slider
+                        className={styles.chatSettingsSeparator}
+                        label="Similarity Score Threshold"
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        defaultValue={scoreThreshold}
+                        onChange={onScoreThresholdChange}
+                        showValue
+                        snapToStep
+                    />
+
                     <SpinButton
                         className={styles.chatSettingsSeparator}
                         label="Retrieve this many search results:"
                         min={1}
-                        max={50}
+                        max={10}
                         defaultValue={retrieveCount.toString()}
                         onChange={onRetrieveCountChange}
                     />

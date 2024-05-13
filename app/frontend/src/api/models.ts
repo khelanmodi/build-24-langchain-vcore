@@ -8,9 +8,7 @@ export type ChatAppRequestOverrides = {
     retrieval_mode?: RetrievalMode;
     top?: number;
     temperature?: number;
-    prompt_template?: string;
-    prompt_template_prefix?: string;
-    prompt_template_suffix?: string;
+    score_threshold?: number;
 };
 
 export type ResponseMessage = {
