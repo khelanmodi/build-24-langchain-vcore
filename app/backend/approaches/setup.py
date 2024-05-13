@@ -1,8 +1,10 @@
+from abc import ABC
+
 from backend.approaches.utils import chat_api, embeddings_api
 from backend.approaches.vector import Vector
 
 
-class OpenAISetup:
+class OpenAISetup(ABC):
     def __init__(
         self,
         openai_embeddings_model: str,
@@ -19,7 +21,7 @@ class OpenAISetup:
         self._chat_api = chat_api(openai_chat_model, openai_chat_deployment, api_key, api_version, azure_endpoint)
 
 
-class Setup:
+class Setup(ABC):
     def __init__(
         self,
         openai_embeddings_model: str,
