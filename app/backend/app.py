@@ -29,16 +29,16 @@ def create_app(app_config: AppConfig, test_config=None):
         collection_name = "johncosmoscollection"
 
         if retrieval_mode == "vector":
-            vector_answer = app_config.run_vector(collection_name, messages[-1]["content"], top, score_threshold)
+            vector_answer = app_config.run_vector(collection_name, messages, top, score_threshold)
             return jsonify({"choices": vector_answer})
         elif retrieval_mode == "rag":
-            rag_answer = app_config.run_rag(collection_name, messages[-1]["content"], top, score_threshold)
+            rag_answer = app_config.run_rag(collection_name, messages, top, score_threshold)
             return jsonify({"choices": rag_answer})
         elif retrieval_mode == "keyword":
-            keyword_answer = app_config.run_keyword(collection_name, messages[-1]["content"], top, score_threshold)
+            keyword_answer = app_config.run_keyword(collection_name, messages, top, score_threshold)
             return jsonify({"choices": keyword_answer})
         else:
-            return jsonify({"error": "Not Implemented!\nMessage: " + body["messages"][0]["content"]}), 400
+            return jsonify({"error": "Not Implemented!"}), 400
 
     return app
 
