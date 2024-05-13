@@ -29,9 +29,10 @@ class AppConfig:
         )
 
     def run_vector(
-        self, collection_name: str, query: str, limit: int, score_threshold: float
+        self, collection_name: str, messages: list, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
-        vector_response = self.setup.vector_search.run(collection_name, query, limit, score_threshold)
+        last_message = messages[-1]["content"]
+        vector_response, answer = self.setup.vector_search.run(collection_name, last_message, limit, score_threshold)
         if vector_response is None or len(vector_response) == 0:
             return [
                 RetrievalResponse(
@@ -40,7 +41,7 @@ class AppConfig:
                     message=Message(content="No results found", role="assistant"),
                 )
             ]
-        top_result = json.loads(vector_response[0].page_content)
+        top_result = json.loads(answer)
 
         message_content = f"""
             Name: {top_result.get('name')}
@@ -67,14 +68,15 @@ class AppConfig:
 
         context: Context = Context(data_points=data_points, thoughts=thoughts)
 
-        index: int = vector_response[0].metadata.get("seq_num")
+        index: int = vector_response[0].metadata.get("seq_num", 0)
         message: Message = Message(content=message_content, role="assistant")
         return [RetrievalResponse(context, index, message)]
 
     def run_rag(
-        self, collection_name: str, message: str, limit: int, score_threshold: float
+        self, collection_name: str, messages: list, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
-        rag_response = None
+        last_message = messages[-1]["content"]
+        rag_response, answer = self.setup.rag.run(collection_name, last_message, limit, score_threshold)
         if rag_response is None or len(rag_response) == 0:
             return [
                 RetrievalResponse(
@@ -84,8 +86,32 @@ class AppConfig:
                 )
             ]
 
+        raw_data = json.loads(rag_response[0].page_content)
+
+        json_data_point: JSONDataPoint = JSONDataPoint(
+            name=raw_data.get("name"),
+            description=raw_data.get("description"),
+            price=raw_data.get("price"),
+            category=raw_data.get("category"),
+            collection=collection_name,
+        )
+
+        data_points: DataPoint = DataPoint(json=[json_data_point])
+
+        thoughts: list[Thought] = [Thought(description=rag_response[0].metadata.get("source"), title="Source")]
+
+        index: int = rag_response[0].metadata.get("seq_num", 0)
+
+        return [
+            RetrievalResponse(
+                context=Context(data_points, thoughts),
+                index=index,
+                message=Message(content=answer, role="assistant"),
+            )
+        ]
+
     def run_keyword(
-        self, collection_name: str, message: str, limit: int, score_threshold: float
+        self, collection_name: str, messages: list, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
         keyword_response = None
         if keyword_response is None or len(keyword_response) == 0:

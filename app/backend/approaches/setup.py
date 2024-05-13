@@ -1,5 +1,6 @@
 from abc import ABC
 
+from backend.approaches.rag import RAG
 from backend.approaches.utils import chat_api, embeddings_api
 from backend.approaches.vector import Vector
 
@@ -34,7 +35,7 @@ class Setup(ABC):
         api_version: str,
         azure_endpoint: str,
     ):
-        self.__openai_setup = OpenAISetup(
+        self._openai_setup = OpenAISetup(
             openai_embeddings_model,
             openai_embeddings_deployment,
             openai_chat_model,
@@ -46,5 +47,12 @@ class Setup(ABC):
         self.vector_search = Vector(
             connection_string=connection_string,
             database_name=database_name,
-            embedding=self.__openai_setup._embeddings_api,
+            embedding=self._openai_setup._embeddings_api,
+            chat=self._openai_setup._chat_api,
+        )
+        self.rag = RAG(
+            connection_string=connection_string,
+            database_name=database_name,
+            embedding=self._openai_setup._embeddings_api,
+            chat=self._openai_setup._chat_api,
         )
