@@ -1,5 +1,7 @@
+import json
 import os
 
+from backend.approaches.schemas import Context, DataPoint, JSONDataPoint, Message, RetrievalResponse, Thought
 from backend.approaches.setup import Setup
 
 
@@ -25,3 +27,72 @@ class AppConfig:
             api_version,
             azure_endpoint,
         )
+
+    def run_vector(
+        self, collection_name: str, query: str, limit: int, score_threshold: float
+    ) -> list[RetrievalResponse]:
+        vector_response = self.setup.vector_search.run(collection_name, query, limit, score_threshold)
+        if vector_response is None or len(vector_response) == 0:
+            return [
+                RetrievalResponse(
+                    context=Context(DataPoint([JSONDataPoint()]), [Thought()]),
+                    index=0,
+                    message=Message(content="No results found", role="assistant"),
+                )
+            ]
+        top_result = json.loads(vector_response[0].page_content)
+
+        message_content = f"""
+            Name: {top_result.get('name')}
+            Description: {top_result.get('description')}
+            Price: {top_result.get('price')}
+            Category: {top_result.get('category')}
+            Collection: {collection_name}
+        """
+
+        data_points: DataPoint = DataPoint(json=[])
+        thoughts: list[Thought] = []
+
+        thoughts.append(Thought(description=vector_response[0].metadata.get("source"), title="Source"))
+
+        for res in vector_response:
+            raw_data = json.loads(res.page_content)
+            json_data_point: JSONDataPoint = JSONDataPoint()
+            json_data_point.name = raw_data.get("name")
+            json_data_point.description = raw_data.get("description")
+            json_data_point.price = raw_data.get("price")
+            json_data_point.category = raw_data.get("category")
+            json_data_point.collection = collection_name
+            data_points.json.append(json_data_point)
+
+        context: Context = Context(data_points=data_points, thoughts=thoughts)
+
+        index: int = vector_response[0].metadata.get("seq_num")
+        message: Message = Message(content=message_content, role="assistant")
+        return [RetrievalResponse(context, index, message)]
+
+    def run_rag(
+        self, collection_name: str, message: str, limit: int, score_threshold: float
+    ) -> list[RetrievalResponse]:
+        rag_response = None
+        if rag_response is None or len(rag_response) == 0:
+            return [
+                RetrievalResponse(
+                    context=Context(DataPoint([JSONDataPoint()]), [Thought()]),
+                    index=0,
+                    message=Message(content="No results found", role="assistant"),
+                )
+            ]
+
+    def run_keyword(
+        self, collection_name: str, message: str, limit: int, score_threshold: float
+    ) -> list[RetrievalResponse]:
+        keyword_response = None
+        if keyword_response is None or len(keyword_response) == 0:
+            return [
+                RetrievalResponse(
+                    context=Context(DataPoint([JSONDataPoint()]), [Thought()]),
+                    index=0,
+                    message=Message(content="No results found", role="assistant"),
+                )
+            ]

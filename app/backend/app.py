@@ -1,4 +1,3 @@
-import json
 from typing import Any
 
 from quart import Quart, Response, jsonify, request
@@ -23,46 +22,23 @@ def create_app(app_config: AppConfig, test_config=None):
             return jsonify({"error": "request must be json"}), 415
         body = await request.get_json()
         messages = body.get("messages", [])
-        # stream = body.get("stream", False)
         context = body.get("context", {})
-        retrieval_mode = context.get("overrides", {}).get("retrieval_mode")
-        if retrieval_mode == "vector":
-            collection_name = "johncosmoscollection"
-            vector_response = app_config.setup.vector_search.run(collection_name, messages[-1]["content"])
-            top_result = json.loads(vector_response[0].page_content)
-            message_content = f"""
-                Name: {top_result.get('name')}
-                Description: {top_result.get('description')}
-                Price: {top_result.get('price')}
-                Category: {top_result.get('category')}
-                Collection: {collection_name}
-            """
-            answer = [
-                {
-                    "context": {
-                        "data_points": {"json": []},
-                        "thoughts": [{"description": vector_response[0].metadata.get("source"), "title": "Source"}],
-                    },
-                    "index": vector_response[0].metadata.get("seq_num"),
-                    "message": {
-                        "content": message_content,
-                        "role": "assistant",
-                    },
-                }
-            ]
-            for res in vector_response:
-                data_point = json.loads(res.page_content)
-                data_point["collection"] = collection_name
-                answer[0]["context"]["data_points"]["json"].append(data_point)
-            return jsonify({"choices": answer})
-        return jsonify({"error": "Not Implemented!\nMessage: " + body["messages"][0]["content"]}), 400
+        retrieval_mode = context.get("overrides", {}).get("retrieval_mode", "vector")
+        top = context.get("overrides", {}).get("top", 3)
+        score_threshold = context.get("overrides", {}).get("score_threshold", 0.5)
+        collection_name = "johncosmoscollection"
 
-    @app.route("/ask", methods=["POST"])
-    async def ask() -> Any:
-        if not request.is_json:
-            return jsonify({"error": "request must be json"}), 415
-        body = await request.get_json()
-        return jsonify({"error": "Not Implemented!\nMessage: " + body["messages"][0]["content"]}), 400
+        if retrieval_mode == "vector":
+            vector_answer = app_config.run_vector(collection_name, messages[-1]["content"], top, score_threshold)
+            return jsonify({"choices": vector_answer})
+        elif retrieval_mode == "rag":
+            rag_answer = app_config.run_rag(collection_name, messages[-1]["content"], top, score_threshold)
+            return jsonify({"choices": rag_answer})
+        elif retrieval_mode == "keyword":
+            keyword_answer = app_config.run_keyword(collection_name, messages[-1]["content"], top, score_threshold)
+            return jsonify({"choices": keyword_answer})
+        else:
+            return jsonify({"error": "Not Implemented!\nMessage: " + body["messages"][0]["content"]}), 400
 
     return app
 
