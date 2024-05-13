@@ -16,7 +16,7 @@ def embeddings_api(
 
 def chat_api(
     openai_chat_model: str, openai_chat_deployment: str, api_key: str, api_version: str, azure_endpoint: str
-) -> AzureOpenAIEmbeddings:
+) -> AzureChatOpenAI:
     return AzureChatOpenAI(
         model=openai_chat_model,
         azure_deployment=openai_chat_deployment,
