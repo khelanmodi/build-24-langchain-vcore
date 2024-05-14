@@ -6,9 +6,10 @@ import { RetrievalMode } from "../../api";
 
 interface Props {
     updateRetrievalMode: (retrievalMode: RetrievalMode) => void;
+    defaultRetrievalMode: RetrievalMode;
 }
 
-export const VectorSettings = ({ updateRetrievalMode }: Props) => {
+export const VectorSettings = ({ updateRetrievalMode, defaultRetrievalMode }: Props) => {
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
 
     const onRetrievalModeChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<RetrievalMode> | undefined) => {
@@ -19,11 +20,12 @@ export const VectorSettings = ({ updateRetrievalMode }: Props) => {
     return (
         <Stack className={styles.container} tokens={{ childrenGap: 10 }}>
             <Dropdown
+                selectedKey={defaultRetrievalMode.toString()}
                 label="Retrieval mode"
                 options={[
-                    { key: "hybrid", text: "Vectors + Text (Hybrid)", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
-                    { key: "vectors", text: "Vectors", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
-                    { key: "text", text: "Text", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text },
+                    { key: "rag", text: "RAG with Vector Search", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
+                    { key: "vector", text: "Vector Search", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
+                    { key: "keyword", text: "Keyword Search", selected: retrievalMode == RetrievalMode.Text, data: RetrievalMode.Text },
                 ]}
                 required
                 onChange={onRetrievalModeChange}

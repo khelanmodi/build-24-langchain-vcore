@@ -16,8 +16,8 @@ pip install -e .
 > ```
 >
 
-To start the application run inside the `app/backend/` directory:
+To start the application run inside the `app/` directory:
 
 ```bash
-quart run
+quart --app backend run
 ```

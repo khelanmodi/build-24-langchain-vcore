@@ -4,7 +4,7 @@ The demo will feature a streamlined ordering system tailored for various food ch
 
 [slide deck](https://microsoft-my.sharepoint.com/:p:/p/khelanmodi/Ecw4bJ6Z9ltOniDMrTa9JcwBvZ0r3QPpMeZU1f-kkwr3OA?e=Ctqexg)
 
-# How to use?
+## How to use?
 
 1. **Download the project starter code locally**
 
@@ -16,7 +16,7 @@ The demo will feature a streamlined ordering system tailored for various food ch
 1. **Initialize and activate a virtualenv using:**
 
     ```bash
-    python -m venv .venv
+    python3 -m venv .venv
     source .venv/bin/activate
     ```
 

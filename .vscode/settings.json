@@ -20,15 +20,27 @@
         "**/.coverage": true,
         "**/.pytest_cache": true,
         "**/.ruff_cache": true,
-        "**/.mypy_cache": true
+        "**/.mypy_cache": true,
+        "**/.venv": true
     },
     "search.exclude": {
         "**/node_modules": true,
-        "static": true
+        "static": true,
+        "**/.venv": true
     },
     "python.testing.pytestArgs": [
         "tests"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "remote.portsAttributes": {
+        "5000": {
+            "label": "Backend port",
+            "onAutoForward": "notify"
+        },
+        "5173": {
+            "label": "Frontend port",
+            "onAutoForward": "notify"
+        }
+    },
 }

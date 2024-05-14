@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Slider } from "@fluentui/react";
-import { SparkleFilled } from "@fluentui/react-icons";
+import cosmos from "../../assets/FeaturedDefault.png";
 import readNDJSONStream from "ndjson-readablestream";
 
 import styles from "./Chat.module.css";
@@ -17,11 +17,11 @@ import { VectorSettings } from "../../components/VectorSettings";
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
-    const [promptTemplate, setPromptTemplate] = useState<string>("");
     const [temperature, setTemperature] = useState<number>(0.3);
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
+    const [scoreThreshold, setScoreThreshold] = useState<number>(0.5);
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
-    const [shouldStream, setShouldStream] = useState<boolean>(true);
+    const [shouldStream, setShouldStream] = useState<boolean>(false);
 
     const lastQuestionRef = useRef<string>("");
     const chatMessageStreamEnd = useRef<HTMLDivElement | null>(null);
@@ -30,7 +30,6 @@ const Chat = () => {
     const [isStreaming, setIsStreaming] = useState<boolean>(false);
     const [error, setError] = useState<unknown>();
 
-    const [activeCitation, setActiveCitation] = useState<string>();
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
@@ -85,7 +84,6 @@ const Chat = () => {
 
         error && setError(undefined);
         setIsLoading(true);
-        setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
 
         try {
@@ -99,14 +97,12 @@ const Chat = () => {
                 stream: shouldStream,
                 context: {
                     overrides: {
-                        prompt_template: promptTemplate.length === 0 ? undefined : promptTemplate,
+                        score_threshold: scoreThreshold,
                         top: retrieveCount,
                         temperature: temperature,
                         retrieval_mode: retrievalMode,
                     },
                 },
-                // ChatAppProtocol: Client must pass on any session state received from the server
-                session_state: answers.length ? answers[answers.length - 1][1].choices[0].session_state : null,
             };
 
             const response = await chatApi(request);
@@ -133,7 +129,6 @@ const Chat = () => {
     const clearChat = () => {
         lastQuestionRef.current = "";
         error && setError(undefined);
-        setActiveCitation(undefined);
         setActiveAnalysisPanelTab(undefined);
         setAnswers([]);
         setStreamedAnswers([]);
@@ -144,16 +139,20 @@ const Chat = () => {
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "auto" }), [streamedAnswers]);
 
-    const onPromptTemplateChange = (_ev?: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setPromptTemplate(newValue || "");
-    };
-
     const onTemperatureChange = (
         newValue: number,
         range?: [number, number],
         event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent,
     ) => {
         setTemperature(newValue);
+    };
+
+    const onScoreThresholdChange = (
+        newValue: number,
+        range?: [number, number],
+        event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent,
+    ) => {
+        setScoreThreshold(newValue);
     };
 
     const onRetrieveCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
@@ -166,17 +165,6 @@ const Chat = () => {
 
     const onExampleClicked = (example: string) => {
         makeApiRequest(example);
-    };
-
-    const onShowCitation = (citation: string, index: number) => {
-        if (activeCitation === citation && activeAnalysisPanelTab === AnalysisPanelTabs.CitationTab && selectedAnswer === index) {
-            setActiveAnalysisPanelTab(undefined);
-        } else {
-            setActiveCitation(citation);
-            setActiveAnalysisPanelTab(AnalysisPanelTabs.CitationTab);
-        }
-
-        setSelectedAnswer(index);
     };
 
     const onToggleTab = (tab: AnalysisPanelTabs, index: number) => {
@@ -199,8 +187,8 @@ const Chat = () => {
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
-                            <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
-                            <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
+                            <img src={cosmos} alt="Cosmos logo" aria-label="Cosmos logo" width="100px" height="100px" className={styles.githubLogo} />
+                            <h1 className={styles.chatEmptyStateTitle}>FlavorGenius: Chat, Input, Discover</h1>
                             <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />
                         </div>
@@ -216,10 +204,8 @@ const Chat = () => {
                                                 key={index}
                                                 answer={streamedAnswer[1]}
                                                 isSelected={false}
-                                                onCitationClicked={(c) => onShowCitation(c, index)}
                                                 onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
                                                 onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
-                                                onFollowupQuestionClicked={(q) => makeApiRequest(q)}
                                             />
                                         </div>
                                     </div>
@@ -234,10 +220,8 @@ const Chat = () => {
                                                 key={index}
                                                 answer={answer[1]}
                                                 isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
-                                                onCitationClicked={(c) => onShowCitation(c, index)}
                                                 onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
                                                 onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
-                                                onFollowupQuestionClicked={(q) => makeApiRequest(q)}
                                             />
                                         </div>
                                     </div>
@@ -265,7 +249,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
+                            placeholder="Type a new question (e.g. Are there any high protein recipes available?)"
                             disabled={isLoading}
                             onSend={(question) => makeApiRequest(question)}
                         />
@@ -275,9 +259,7 @@ const Chat = () => {
                 {answers.length > 0 && activeAnalysisPanelTab && (
                     <AnalysisPanel
                         className={styles.chatAnalysisPanel}
-                        activeCitation={activeCitation}
                         onActiveTabChanged={(x) => onToggleTab(x, selectedAnswer)}
-                        citationHeight="810px"
                         answer={answers[selectedAnswer][1]}
                         activeTab={activeAnalysisPanelTab}
                     />
@@ -292,15 +274,6 @@ const Chat = () => {
                     onRenderFooterContent={() => <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>Close</DefaultButton>}
                     isFooterAtBottom={true}
                 >
-                    <TextField
-                        className={styles.chatSettingsSeparator}
-                        defaultValue={promptTemplate}
-                        label="Override prompt template"
-                        multiline
-                        autoAdjustHeight
-                        onChange={onPromptTemplateChange}
-                    />
-
                     <Slider
                         className={styles.chatSettingsSeparator}
                         label="Temperature"
@@ -313,22 +286,30 @@ const Chat = () => {
                         snapToStep
                     />
 
+                    <Slider
+                        className={styles.chatSettingsSeparator}
+                        label="Similarity Score Threshold"
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        defaultValue={scoreThreshold}
+                        onChange={onScoreThresholdChange}
+                        showValue
+                        snapToStep
+                    />
+
                     <SpinButton
                         className={styles.chatSettingsSeparator}
                         label="Retrieve this many search results:"
                         min={1}
-                        max={50}
+                        max={10}
                         defaultValue={retrieveCount.toString()}
                         onChange={onRetrieveCountChange}
                     />
 
-                    <VectorSettings updateRetrievalMode={(retrievalMode: RetrievalMode) => setRetrievalMode(retrievalMode)} />
-
-                    <Checkbox
-                        className={styles.chatSettingsSeparator}
-                        checked={shouldStream}
-                        label="Stream chat completion responses"
-                        onChange={onShouldStreamChange}
+                    <VectorSettings
+                        defaultRetrievalMode={retrievalMode}
+                        updateRetrievalMode={(retrievalMode: RetrievalMode) => setRetrievalMode(retrievalMode)}
                     />
                 </Panel>
             </div>

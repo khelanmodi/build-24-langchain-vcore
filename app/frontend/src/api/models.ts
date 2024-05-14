@@ -1,16 +1,14 @@
 export const enum RetrievalMode {
-    Hybrid = "hybrid",
-    Vectors = "vectors",
-    Text = "text",
+    Hybrid = "rag",
+    Vectors = "vector",
+    Text = "keyword",
 }
 
 export type ChatAppRequestOverrides = {
     retrieval_mode?: RetrievalMode;
     top?: number;
     temperature?: number;
-    prompt_template?: string;
-    prompt_template_prefix?: string;
-    prompt_template_suffix?: string;
+    score_threshold?: number;
 };
 
 export type ResponseMessage = {
@@ -25,8 +23,7 @@ export type Thoughts = {
 };
 
 export type ResponseContext = {
-    data_points: string[];
-    followup_questions: string[] | null;
+    data_points: any[];
     thoughts: Thoughts[];
 };
 
@@ -34,7 +31,6 @@ export type ResponseChoice = {
     index: number;
     message: ResponseMessage;
     context: ResponseContext;
-    session_state: any;
 };
 
 export type ChatAppResponseOrError = {
@@ -54,7 +50,6 @@ export type ChatAppRequest = {
     messages: ResponseMessage[];
     context?: ChatAppRequestContext;
     stream?: boolean;
-    session_state: any;
 };
 
 export type SimpleAPIResponse = {
