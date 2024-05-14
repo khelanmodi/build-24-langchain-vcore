@@ -1,5 +1,7 @@
 from abc import ABC
 
+from pydantic.v1 import SecretStr
+
 from backend.approaches.rag import RAG
 from backend.approaches.utils import chat_api, embeddings_api
 from backend.approaches.vector import Vector
@@ -12,7 +14,7 @@ class OpenAISetup(ABC):
         openai_embeddings_deployment: str,
         openai_chat_model: str,
         openai_chat_deployment: str,
-        api_key: str,
+        api_key: SecretStr,
         api_version: str,
         azure_endpoint: str,
     ):
@@ -31,7 +33,7 @@ class Setup(ABC):
         openai_chat_deployment: str,
         connection_string: str,
         database_name: str,
-        api_key: str,
+        api_key: SecretStr,
         api_version: str,
         azure_endpoint: str,
     ):

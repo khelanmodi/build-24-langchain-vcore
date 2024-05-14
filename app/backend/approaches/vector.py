@@ -5,7 +5,9 @@ from backend.approaches.utils import vector_store_api
 
 
 class Vector(ApproachesBase):
-    def run(self, collection_name: str, query: str, limit: int, score_threshold: float) -> tuple[list[Document], str]:
+    def run(
+        self, collection_name: str, query: str, temperature: float, limit: int, score_threshold: float
+    ) -> tuple[list[Document], str]:
         namespace = f"{self._database_name}.{collection_name}"
         vector_store = vector_store_api(
             namespace=namespace, connection_string=self._connection_string, embedding=self._embedding

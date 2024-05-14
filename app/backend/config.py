@@ -1,6 +1,8 @@
 import json
 import os
 
+from pydantic.v1 import SecretStr
+
 from backend.approaches.schemas import Context, DataPoint, JSONDataPoint, Message, RetrievalResponse, Thought
 from backend.approaches.setup import Setup
 
@@ -13,7 +15,7 @@ class AppConfig:
         openai_chat_deployment = os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "chat-gpt")
         connection_string = os.getenv("AZURE_COSMOS_CONNECTION_STRING", "<YOUR-COSMOS-DB-CONNECTION-STRING>")
         database_name = os.getenv("AZURE_COSMOS_DATABASE_NAME", "<COSMOS-DB-NEW-UNIQUE-DATABASE-NAME>")
-        api_key = os.getenv("AZURE_OPENAI_API_KEY", "<YOUR-DEPLOYMENT-KEY>")
+        api_key = SecretStr(os.getenv("AZURE_OPENAI_API_KEY", "<YOUR-DEPLOYMENT-KEY>"))
         api_version = os.getenv("OPENAI_API_VERSION", "2023-09-15-preview")
         azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "https://<YOUR-OPENAI-DEPLOYMENT-NAME>.openai.azure.com/")
         self.setup = Setup(
@@ -29,10 +31,12 @@ class AppConfig:
         )
 
     def run_vector(
-        self, collection_name: str, messages: list, limit: int, score_threshold: float
+        self, collection_name: str, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
         last_message = messages[-1]["content"]
-        vector_response, answer = self.setup.vector_search.run(collection_name, last_message, limit, score_threshold)
+        vector_response, answer = self.setup.vector_search.run(
+            collection_name, last_message, temperature, limit, score_threshold
+        )
         if vector_response is None or len(vector_response) == 0:
             return [
                 RetrievalResponse(
@@ -73,10 +77,10 @@ class AppConfig:
         return [RetrievalResponse(context, index, message)]
 
     def run_rag(
-        self, collection_name: str, messages: list, limit: int, score_threshold: float
+        self, collection_name: str, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
         last_message = messages[-1]["content"]
-        rag_response, answer = self.setup.rag.run(collection_name, last_message, limit, score_threshold)
+        rag_response, answer = self.setup.rag.run(collection_name, last_message, temperature, limit, score_threshold)
         if rag_response is None or len(rag_response) == 0:
             return [
                 RetrievalResponse(
@@ -111,7 +115,7 @@ class AppConfig:
         ]
 
     def run_keyword(
-        self, collection_name: str, messages: list, limit: int, score_threshold: float
+        self, collection_name: str, messages: list, limit: int, temperature: float, score_threshold: float
     ) -> list[RetrievalResponse]:
         keyword_response = None
         if keyword_response is None or len(keyword_response) == 0:

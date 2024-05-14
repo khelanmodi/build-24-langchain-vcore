@@ -14,5 +14,7 @@ class ApproachesBase(ABC):
         self._chat = chat
 
     @abstractmethod
-    def run(self, collection_name: str, query: str, limit: int, score_threshold: float) -> tuple[list[Document], str]:
+    def run(
+        self, collection_name: str, query: str, temperature: float, limit: int, score_threshold: float
+    ) -> tuple[list[Document], str]:
         raise NotImplementedError

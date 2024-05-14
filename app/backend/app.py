@@ -23,19 +23,21 @@ def create_app(app_config: AppConfig, test_config=None):
         body = await request.get_json()
         messages = body.get("messages", [])
         context = body.get("context", {})
-        retrieval_mode = context.get("overrides", {}).get("retrieval_mode", "vector")
-        top = context.get("overrides", {}).get("top", 3)
-        score_threshold = context.get("overrides", {}).get("score_threshold", 0.5)
+        override = context.get("overrides", {})
+        retrieval_mode = override.get("retrieval_mode", "vector")
+        temperature = override.get("temperature", 0.3)
+        top = override.get("top", 3)
+        score_threshold = override.get("score_threshold", 0.5)
         collection_name = "johncosmoscollection"
 
         if retrieval_mode == "vector":
-            vector_answer = app_config.run_vector(collection_name, messages, top, score_threshold)
+            vector_answer = app_config.run_vector(collection_name, messages, temperature, top, score_threshold)
             return jsonify({"choices": vector_answer})
         elif retrieval_mode == "rag":
-            rag_answer = app_config.run_rag(collection_name, messages, top, score_threshold)
+            rag_answer = app_config.run_rag(collection_name, messages, temperature, top, score_threshold)
             return jsonify({"choices": rag_answer})
         elif retrieval_mode == "keyword":
-            keyword_answer = app_config.run_keyword(collection_name, messages, top, score_threshold)
+            keyword_answer = app_config.run_keyword(collection_name, messages, temperature, top, score_threshold)
             return jsonify({"choices": keyword_answer})
         else:
             return jsonify({"error": "Not Implemented!"}), 400
