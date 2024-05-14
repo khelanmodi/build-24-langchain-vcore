@@ -33,9 +33,8 @@ class AppConfig:
     def run_vector(
         self, collection_name: str, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
-        last_message = messages[-1]["content"]
         vector_response, answer = self.setup.vector_search.run(
-            collection_name, last_message, temperature, limit, score_threshold
+            collection_name, messages, temperature, limit, score_threshold
         )
         if vector_response is None or len(vector_response) == 0:
             return [
@@ -79,8 +78,7 @@ class AppConfig:
     def run_rag(
         self, collection_name: str, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
-        last_message = messages[-1]["content"]
-        rag_response, answer = self.setup.rag.run(collection_name, last_message, temperature, limit, score_threshold)
+        rag_response, answer = self.setup.rag.run(collection_name, messages, temperature, limit, score_threshold)
         if rag_response is None or len(rag_response) == 0:
             return [
                 RetrievalResponse(

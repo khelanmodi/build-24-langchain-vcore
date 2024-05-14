@@ -12,8 +12,9 @@ from backend.approaches.utils import vector_store_api
 
 class RAG(ApproachesBase):
     def run(
-        self, collection_name: str, query: str, temperature: float, limit: int, score_threshold: float
+        self, collection_name: str, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> tuple[list[Document], str]:
+        query = messages[-1]["content"]
         namespace = f"{self._database_name}.{collection_name}"
         vector_store = vector_store_api(
             namespace=namespace, connection_string=self._connection_string, embedding=self._embedding
