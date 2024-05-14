@@ -84,33 +84,31 @@ class AppConfig:
                 RetrievalResponse(
                     context=Context(DataPoint([JSONDataPoint()]), [Thought()]),
                     index=0,
-                    message=Message(content="No results found", role="assistant"),
+                    message=Message(content=answer, role="assistant"),
                 )
             ]
 
-        raw_data = json.loads(rag_response[0].page_content)
+        data_points: DataPoint = DataPoint(json=[])
+        thoughts: list[Thought] = []
 
-        json_data_point: JSONDataPoint = JSONDataPoint(
-            name=raw_data.get("name"),
-            description=raw_data.get("description"),
-            price=raw_data.get("price"),
-            category=raw_data.get("category"),
-            collection=collection_name,
-        )
+        thoughts.append(Thought(description=rag_response[0].metadata.get("source"), title="Source"))
 
-        data_points: DataPoint = DataPoint(json=[json_data_point])
+        for res in rag_response:
+            raw_data = json.loads(res.page_content)
+            json_data_point: JSONDataPoint = JSONDataPoint()
+            json_data_point.name = raw_data.get("name")
+            json_data_point.description = raw_data.get("description")
+            json_data_point.price = raw_data.get("price")
+            json_data_point.category = raw_data.get("category")
+            json_data_point.collection = collection_name
+            data_points.json.append(json_data_point)
 
-        thoughts: list[Thought] = [Thought(description=rag_response[0].metadata.get("source"), title="Source")]
+        context: Context = Context(data_points=data_points, thoughts=thoughts)
 
         index: int = rag_response[0].metadata.get("seq_num", 0)
+        message: Message = Message(content=answer, role="assistant")
 
-        return [
-            RetrievalResponse(
-                context=Context(data_points, thoughts),
-                index=index,
-                message=Message(content=answer, role="assistant"),
-            )
-        ]
+        return [RetrievalResponse(context, index, message)]
 
     def run_keyword(
         self, collection_name: str, messages: list, limit: int, temperature: float, score_threshold: float
