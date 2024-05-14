@@ -20,11 +20,13 @@
         "**/.coverage": true,
         "**/.pytest_cache": true,
         "**/.ruff_cache": true,
-        "**/.mypy_cache": true
+        "**/.mypy_cache": true,
+        "**/.venv": true
     },
     "search.exclude": {
         "**/node_modules": true,
-        "static": true
+        "static": true,
+        "**/.venv": true
     },
     "python.testing.pytestArgs": [
         "tests"
