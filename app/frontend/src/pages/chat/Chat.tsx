@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Slider } from "@fluentui/react";
-import { SparkleFilled } from "@fluentui/react-icons";
+import cosmos from "../../assets/FeaturedDefault.png";
 import readNDJSONStream from "ndjson-readablestream";
 
 import styles from "./Chat.module.css";
@@ -187,7 +187,7 @@ const Chat = () => {
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
-                            <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
+                            <img src={cosmos} alt="Cosmos logo" aria-label="Cosmos logo" width="100px" height="100px" className={styles.githubLogo} />
                             <h1 className={styles.chatEmptyStateTitle}>FlavorGenius: Chat, Input, Discover</h1>
                             <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
                             <ExampleList onExampleClicked={onExampleClicked} />

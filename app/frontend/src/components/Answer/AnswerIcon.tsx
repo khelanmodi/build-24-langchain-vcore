@@ -1,5 +1,5 @@
-import { Sparkle28Filled } from "@fluentui/react-icons";
+import cosmos from "../../assets/FeaturedDefault.png";
 
 export const AnswerIcon = () => {
-    return <Sparkle28Filled primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Answer logo" />;
+    return <img src={cosmos} alt="Cosmos logo" aria-label="Cosmos logo" aria-hidden="true" width="30px" height="30px" />;
 };
