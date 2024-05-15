@@ -5,7 +5,7 @@ This is a React Web App with a simple chat interface empowered with some develop
 To install the application requirements run this command inside the `app/frontend/` directory:
 
 ```bash
-nvm use 18
+nvm use 16
 npm install
 ```
 
@@ -13,7 +13,7 @@ npm install
 > To install the development dependencies you need to use the following command:
 >
 > ```bash
-> nvm use 18
+> nvm use 16
 > npm install --include=dev
 > ```
 >
