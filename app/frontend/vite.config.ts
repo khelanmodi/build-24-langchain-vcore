@@ -25,8 +25,8 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            "/content/": "http://localhost:5000",
-            "/chat": "http://localhost:5000",
+            "/content/": "http://127.0.0.1:5000",
+            "/chat": "http://127.0.0.1:5000",
         },
     },
 });
