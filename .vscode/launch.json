@@ -12,14 +12,15 @@
             "cwd": "${workspaceFolder}/app",
             "python": "${workspaceFolder}/.venv/bin/python",
             "env": {
-                "QUART_APP": "backend",
+                "QUART_APP": "backend.main:app",
                 "QUART_ENV": "development",
                 "QUART_DEBUG": "0"
             },
             "args": [
                 "run",
                 "--no-reload",
-                "-p 5000"
+                "-p",
+                "5000",
             ],
             "console": "integratedTerminal",
             "justMyCode": false,
