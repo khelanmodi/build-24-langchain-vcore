@@ -1,6 +1,4 @@
-import { Stack, Pivot, PivotItem } from "@fluentui/react";
-
-import styles from "./AnalysisPanel.module.css";
+import { Pivot, PivotItem } from "@fluentui/react";
 
 import { SupportingContent } from "../SupportingContent";
 import { ChatAppResponse } from "../../api";

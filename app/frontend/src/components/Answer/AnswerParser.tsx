@@ -1,5 +1,3 @@
-import { renderToStaticMarkup } from "react-dom/server";
-
 type HtmlParsedAnswer = {
     answerHtml: string;
 };

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Checkbox, Panel, DefaultButton, TextField, SpinButton, Slider } from "@fluentui/react";
+import { Panel, DefaultButton, SpinButton, Slider } from "@fluentui/react";
 import cosmos from "../../assets/FeaturedDefault.png";
 import readNDJSONStream from "ndjson-readablestream";
 
