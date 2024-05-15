@@ -7,7 +7,7 @@ from backend.config import AppConfig
 
 
 def create_app(app_config: AppConfig, test_config=None):
-    app = Quart(__name__)
+    app = Quart(__name__, static_folder="static")
 
     if test_config:
         # load the test config if passed in
@@ -15,11 +15,11 @@ def create_app(app_config: AppConfig, test_config=None):
 
     @app.route("/")
     async def index():
-        return await send_file(Path(__file__).resolve().parent / "static" / "index.html")
+        return await send_file(Path(__file__).resolve().parent / "static/index.html")
 
     @app.route("/favicon.ico")
     async def favicon():
-        return await send_file(Path(__file__).resolve().parent / "static" / "favicon.ico")
+        return await send_file(Path(__file__).resolve().parent / "static/favicon.ico")
 
     @app.route("/assets/<path:path>")
     async def assets(path):
