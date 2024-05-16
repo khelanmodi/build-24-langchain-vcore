@@ -20,7 +20,9 @@
                 "run",
                 "--no-reload",
                 "-p",
-                "5000",
+                "50505",
+                "-h",
+                "localhost"
             ],
             "console": "integratedTerminal",
             "justMyCode": false,
