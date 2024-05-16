@@ -19,5 +19,5 @@ pip install -e .
 To start the application run inside the `app/` directory:
 
 ```bash
-quart --app backend run
+quart --app backend.main:app run -h localhost -p 50505
 ```
