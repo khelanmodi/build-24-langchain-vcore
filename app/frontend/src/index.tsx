@@ -19,18 +19,18 @@ const router = createHashRouter([
         children: [
             {
                 index: true,
-                element: <Chat />
+                element: <Chat />,
             },
             {
                 path: "*",
-                lazy: () => import("./pages/NoPage")
-            }
-        ]
-    }
+                lazy: () => import("./pages/NoPage"),
+            },
+        ],
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <RouterProvider router={router} />
-    </React.StrictMode>
+    </React.StrictMode>,
 );

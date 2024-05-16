@@ -17,7 +17,6 @@ dev = [
     "ipykernel",
     "pytest",
     "pytest-cov",
-    "pip-tools",
     "pre-commit",
     "ruff",
     "black",

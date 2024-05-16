@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Stack, TextField } from "@fluentui/react";
-import { Button, Tooltip } from "@fluentui/react-components";
+import { Button, Tooltip, Field, Textarea } from "@fluentui/react-components";
 import { Send28Filled } from "@fluentui/react-icons";
 
 import styles from "./QuestionInput.module.css";

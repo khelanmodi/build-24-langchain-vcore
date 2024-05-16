@@ -22,6 +22,6 @@ export function parseSupportingContentItem(parts: any): ParsedSupportingContentI
         content,
         category,
         collection,
-        price
+        price,
     };
 }

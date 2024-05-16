@@ -1,3 +1,5 @@
+import { renderToStaticMarkup } from "react-dom/server";
+
 type HtmlParsedAnswer = {
     answerHtml: string;
 };
@@ -28,6 +30,6 @@ export function parseAnswerToHtml(answer: string, isStreaming: boolean): HtmlPar
     });
 
     return {
-        answerHtml: fragments.join("")
+        answerHtml: fragments.join(""),
     };
 }
