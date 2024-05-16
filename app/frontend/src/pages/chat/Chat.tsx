@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Panel, DefaultButton, Modal, SpinButton, IconButton, TextField, Slider } from "@fluentui/react";
-import { Button } from "@fluentui/react-components";
+import { Panel, DefaultButton, SpinButton, Slider } from "@fluentui/react";
 import cosmos from "../../assets/FeaturedDefault.png";
 import readNDJSONStream from "ndjson-readablestream";
 
@@ -19,7 +18,6 @@ import { VectorSettings } from "../../components/VectorSettings";
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [temperature, setTemperature] = useState<number>(0.3);
-    const [address, setAddress] = useState<string>("");
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
     const [scoreThreshold, setScoreThreshold] = useState<number>(0.5);
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
@@ -29,7 +27,6 @@ const Chat = () => {
     const chatMessageStreamEnd = useRef<HTMLDivElement | null>(null);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isBuy, setIsBuy] = useState<boolean>(false);
     const [isStreaming, setIsStreaming] = useState<boolean>(false);
     const [error, setError] = useState<unknown>();
 
@@ -80,15 +77,6 @@ const Chat = () => {
             choices: [{ ...askResponse.choices[0], message: { content: answer, role: askResponse.choices[0].message.role } }]
         };
         return fullResponse;
-    };
-
-    const checkthenMakeApiRequest = async (question: string) => {
-        lastQuestionRef.current = question;
-        if (question.match(/buy/)) {
-            setIsBuy(true);
-            return;
-        }
-        makeApiRequest(question);
     };
 
     const makeApiRequest = async (question: string) => {
@@ -157,20 +145,6 @@ const Chat = () => {
         event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent
     ) => {
         setTemperature(newValue);
-    };
-
-    const onAddressChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        if (!newValue) {
-            setAddress("");
-        } else if (newValue.length <= 1000) {
-            setAddress(newValue);
-        }
-    };
-
-    const onHideModal = (
-        event?: React.MouseEventHandler<HTMLElement, MouseEvent> | React.MouseEvent<HTMLElement | HTMLButtonElement, MouseEvent> | undefined,
-    ) => {
-        setIsBuy(false);
     };
 
     const onScoreThresholdChange = (
@@ -260,33 +234,6 @@ const Chat = () => {
                                     </div>
                                 </>
                             )}
-                            {isBuy && (
-                                <>
-                                    <Modal className={styles.buyContainer} isOpen={isBuy} onDismiss={onHideModal} isBlocking={true}>
-                                        <div>
-                                            <IconButton iconProps={{ iconName: "Cancel" }} ariaLabel="Close popup modal" onClick={onHideModal} />
-                                            <div className={styles.buyContainer}>
-                                                <div className={styles.buyMessage}>Enter your address:</div>
-                                            </div>
-                                            <div className={styles.buyContainer}>
-                                                <TextField
-                                                    className={styles.buyInput}
-                                                    value={address}
-                                                    onChange={onAddressChange}
-                                                    multiline
-                                                    resizable={false}
-                                                    borderless
-                                                />
-                                            </div>
-                                            <div className={styles.buyContainer}>
-                                                <Button className={styles.buyMessage} size="large" onClick={onHideModal}>
-                                                    Buy Now?
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </Modal>
-                                </>
-                            )}
                             {error ? (
                                 <>
                                     <UserChatMessage message={lastQuestionRef.current} />
@@ -304,7 +251,7 @@ const Chat = () => {
                             clearOnSend
                             placeholder="Type a new question (e.g. Are there any high protein recipes available?)"
                             disabled={isLoading}
-                            onSend={(question) => checkthenMakeApiRequest(question)}
+                            onSend={question => makeApiRequest(question)}
                         />
                     </div>
                 </div>

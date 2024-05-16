@@ -13,8 +13,7 @@ Chat History:
 
 Standalone question:"""
 
-context_prompt = """You are a chatbot that can have a conversation about Food dishes from the context.
-Answer the following question based only on the provided context:
+context_prompt = """Answer the following question based only on the provided context:
 
 Context:
 {context}
