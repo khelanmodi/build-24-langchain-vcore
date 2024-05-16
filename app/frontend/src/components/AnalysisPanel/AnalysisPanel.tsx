@@ -22,7 +22,7 @@ export const AnalysisPanel = ({ answer, activeTab, className, onActiveTabChanged
         <Pivot
             className={className}
             selectedKey={activeTab}
-            onLinkClick={(pivotItem) => pivotItem && onActiveTabChanged(pivotItem.props.itemKey! as AnalysisPanelTabs)}
+            onLinkClick={pivotItem => pivotItem && onActiveTabChanged(pivotItem.props.itemKey! as AnalysisPanelTabs)}
         >
             <PivotItem
                 itemKey={AnalysisPanelTabs.ThoughtProcessTab}

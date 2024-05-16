@@ -41,12 +41,12 @@ const Chat = () => {
         let askResponse: ChatAppResponse = {} as ChatAppResponse;
 
         const updateState = (newContent: string) => {
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
                 setTimeout(() => {
                     answer += newContent;
                     const latestResponse: ChatAppResponse = {
                         ...askResponse,
-                        choices: [{ ...askResponse.choices[0], message: { content: answer, role: askResponse.choices[0].message.role } }],
+                        choices: [{ ...askResponse.choices[0], message: { content: answer, role: askResponse.choices[0].message.role } }]
                     };
                     setStreamedAnswers([...answers, [question, latestResponse]]);
                     resolve(null);
@@ -74,7 +74,7 @@ const Chat = () => {
         }
         const fullResponse: ChatAppResponse = {
             ...askResponse,
-            choices: [{ ...askResponse.choices[0], message: { content: answer, role: askResponse.choices[0].message.role } }],
+            choices: [{ ...askResponse.choices[0], message: { content: answer, role: askResponse.choices[0].message.role } }]
         };
         return fullResponse;
     };
@@ -87,9 +87,9 @@ const Chat = () => {
         setActiveAnalysisPanelTab(undefined);
 
         try {
-            const messages: ResponseMessage[] = answers.flatMap((a) => [
+            const messages: ResponseMessage[] = answers.flatMap(a => [
                 { content: a[0], role: "user" },
-                { content: a[1].choices[0].message.content, role: "assistant" },
+                { content: a[1].choices[0].message.content, role: "assistant" }
             ]);
 
             const request: ChatAppRequest = {
@@ -100,9 +100,9 @@ const Chat = () => {
                         score_threshold: scoreThreshold,
                         top: retrieveCount,
                         temperature: temperature,
-                        retrieval_mode: retrievalMode,
-                    },
-                },
+                        retrieval_mode: retrievalMode
+                    }
+                }
             };
 
             const response = await chatApi(request);
@@ -142,7 +142,7 @@ const Chat = () => {
     const onTemperatureChange = (
         newValue: number,
         range?: [number, number],
-        event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent,
+        event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent
     ) => {
         setTemperature(newValue);
     };
@@ -150,7 +150,7 @@ const Chat = () => {
     const onScoreThresholdChange = (
         newValue: number,
         range?: [number, number],
-        event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent,
+        event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent
     ) => {
         setScoreThreshold(newValue);
     };
@@ -251,7 +251,7 @@ const Chat = () => {
                             clearOnSend
                             placeholder="Type a new question (e.g. Are there any high protein recipes available?)"
                             disabled={isLoading}
-                            onSend={(question) => makeApiRequest(question)}
+                            onSend={question => makeApiRequest(question)}
                         />
                     </div>
                 </div>
@@ -259,7 +259,7 @@ const Chat = () => {
                 {answers.length > 0 && activeAnalysisPanelTab && (
                     <AnalysisPanel
                         className={styles.chatAnalysisPanel}
-                        onActiveTabChanged={(x) => onToggleTab(x, selectedAnswer)}
+                        onActiveTabChanged={x => onToggleTab(x, selectedAnswer)}
                         answer={answers[selectedAnswer][1]}
                         activeTab={activeAnalysisPanelTab}
                     />

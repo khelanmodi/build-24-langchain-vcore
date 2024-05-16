@@ -28,6 +28,6 @@ export function parseAnswerToHtml(answer: string, isStreaming: boolean): HtmlPar
     });
 
     return {
-        answerHtml: fragments.join(""),
+        answerHtml: fragments.join("")
     };
 }
