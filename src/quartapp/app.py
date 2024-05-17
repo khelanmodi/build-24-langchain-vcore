@@ -3,7 +3,7 @@ from typing import Any
 
 from quart import Quart, Response, jsonify, request, send_file, send_from_directory
 
-from backend.config import AppConfig
+from quartapp.config import AppConfig
 
 
 def create_app(app_config: AppConfig, test_config=None):

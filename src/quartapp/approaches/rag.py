@@ -2,8 +2,8 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.documents import Document
 
-from backend.approaches.base import ApproachesBase
-from backend.approaches.utils import vector_store_api
+from quartapp.approaches.base import ApproachesBase
+from quartapp.approaches.utils import vector_store_api
 
 chat_history_prompt = """Given the following conversation and the last question as a follow up question,
 rephrase the follow up question to be a standalone question.

@@ -2,7 +2,7 @@
 
 This is a simple Quart API to handel requests coming from the frontend.
 
-To install the application requirements run this command inside the `app/` directory:
+To install the application requirements run this command inside the `src/` directory:
 
 ```bash
 pip install -e .
@@ -16,8 +16,8 @@ pip install -e .
 > ```
 >
 
-To start the application run inside the `app/` directory:
+To start the application run inside the `src/` directory:
 
 ```bash
-quart --app backend run -h localhost -p 50505
+quart --app quartapp run -h localhost -p 50505
 ```

@@ -1,7 +1,7 @@
 from langchain_core.documents import Document
 
-from backend.approaches.base import ApproachesBase
-from backend.approaches.utils import vector_store_api
+from quartapp.approaches.base import ApproachesBase
+from quartapp.approaches.utils import vector_store_api
 
 
 class Vector(ApproachesBase):
