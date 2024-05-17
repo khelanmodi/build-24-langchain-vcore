@@ -16,14 +16,26 @@ export type ResponseMessage = {
     role: string;
 };
 
+export type JSONDataPoint = {
+    name: string;
+    description: string;
+    price: string;
+    category: string;
+    collection: string;
+};
+
 export type Thoughts = {
     title: string;
     description: any; // It can be any output from the api
     props?: { [key: string]: string };
 };
 
+export type DataPoint = {
+    json: JSONDataPoint[];
+};
+
 export type ResponseContext = {
-    data_points: any[];
+    data_points: DataPoint;
     thoughts: Thoughts[];
 };
 
@@ -50,8 +62,4 @@ export type ChatAppRequest = {
     messages: ResponseMessage[];
     context?: ChatAppRequestContext;
     stream?: boolean;
-};
-
-export type SimpleAPIResponse = {
-    message?: string;
 };

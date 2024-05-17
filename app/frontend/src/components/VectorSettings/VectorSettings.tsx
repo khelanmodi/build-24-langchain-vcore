@@ -5,8 +5,8 @@ import styles from "./VectorSettings.module.css";
 import { RetrievalMode } from "../../api";
 
 interface Props {
-    updateRetrievalMode: (retrievalMode: RetrievalMode) => void;
     defaultRetrievalMode: RetrievalMode;
+    updateRetrievalMode: (retrievalMode: RetrievalMode) => void;
 }
 
 export const VectorSettings = ({ updateRetrievalMode, defaultRetrievalMode }: Props) => {
@@ -20,8 +20,8 @@ export const VectorSettings = ({ updateRetrievalMode, defaultRetrievalMode }: Pr
     return (
         <Stack className={styles.container} tokens={{ childrenGap: 10 }}>
             <Dropdown
-                selectedKey={defaultRetrievalMode.toString()}
                 label="Retrieval mode"
+                selectedKey={defaultRetrievalMode.toString()}
                 options={[
                     { key: "rag", text: "RAG with Vector Search", selected: retrievalMode == RetrievalMode.Hybrid, data: RetrievalMode.Hybrid },
                     { key: "vector", text: "Vector Search", selected: retrievalMode == RetrievalMode.Vectors, data: RetrievalMode.Vectors },
