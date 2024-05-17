@@ -61,5 +61,4 @@ export type ChatAppRequestContext = {
 export type ChatAppRequest = {
     messages: ResponseMessage[];
     context?: ChatAppRequestContext;
-    stream?: boolean;
 };
