@@ -86,7 +86,7 @@ Navigate to project homepage [http://127.0.0.1:50505/](http://127.0.0.1:50505/) 
 
 ## `azd` Deployment
 
-![architecture-thumbnail](TBD)
+![architecture-thumbnail](https://github.com/khelanmodi/build-24-langchain-vcore/assets/64026625/4c5845d4-d4ab-4342-b559-60ba65943f45)
 
 This repository is set up for deployment on Azure App Service (w/Azure Cosmos DB for MongoDB vCore) using the configuration files in the `infra` folder.
 
