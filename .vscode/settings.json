@@ -34,7 +34,7 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "remote.portsAttributes": {
-        "5000": {
+        "50505": {
             "label": "Backend port",
             "onAutoForward": "notify"
         },
