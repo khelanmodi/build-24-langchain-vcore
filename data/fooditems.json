@@ -108,18 +108,6 @@
         "price": "7.69 USD"
     },
     {
-        "category": "Smoothies",
-        "name": "Pink Velvet",
-        "description": "Strawberry, Raspberry, Banana, Vanilla Protein, Coconut Milk - Toppings: Granola, Banana, Strawberries",
-        "price": "10.0 USD"
-    },
-    {
-        "category": "Smoothies",
-        "name": "Pink Velvet",
-        "description": "Strawberry, Raspberry, Banana, Vanilla Protein, Coconut Milk - Toppings: Granola, Banana, Strawberries",
-        "price": "10.0 USD"
-    },
-    {
         "category": "Breakfast (All-Day)",
         "name": "Waffle Omelets",
         "description": "Eggs, shredded mozzarella, chopped red peppers, chopped broccoli or spinach, andbreakfast sliced sausage.",
@@ -150,114 +138,6 @@
         "price": "7.29 USD"
     },
     {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Cheese Trio Protein Box",
-        "description": "Brie, Gouda and aged sharp Cheddar cheese paired with olive oil and sea-salt crackers, plus a blend of dried apricots and cranberries. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Cheese Trio Protein Box",
-        "description": "Brie, Gouda and aged sharp Cheddar cheese paired with olive oil and sea-salt crackers, plus a blend of dried apricots and cranberries. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Cheese Trio Protein Box",
-        "description": "Brie, Gouda and aged sharp Cheddar cheese paired with olive oil and sea-salt crackers, plus a blend of dried apricots and cranberries. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Cheese Trio Protein Box",
-        "description": "Brie, Gouda and aged sharp Cheddar cheese paired with olive oil and sea-salt crackers, plus a blend of dried apricots and cranberries. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Cheese Trio Protein Box",
-        "description": "Brie, Gouda and aged sharp Cheddar cheese paired with olive oil and sea-salt crackers, plus a blend of dried apricots and cranberries. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Lunch",
-        "name": "Crispy Grilled Cheese on Sourdough",
-        "description": "A blend of white Cheddar and mozzarella cheeses on sourdough bread, topped with a Parmesan butter spread. - VEGETARIAN - HIGH-PROTEIN",
-        "price": "7.25 USD"
-    },
-    {
-        "category": "Salad",
-        "name": "Garden Salad",
-        "description": "Romaine lettuce topped with green peppers, Roma tomatoes, black olives, whole milk mozzarella, and mild cheddar cheeses.",
-        "price": "5.99 USD"
-    },
-    {
         "category": "Salad",
         "name": "Club Salad",
         "description": "Romaine lettuce topped with crispy bacon, Canadian bacon, Roma tomatoes, whole milk mozzarella, and mild cheddar cheese.",
@@ -277,12 +157,6 @@
     },
     {
         "category": "Salad",
-        "name": "Garden Salad",
-        "description": "Romaine lettuce mix, cherry tomatoes, cucumber, red onion and your choice of dressing. Dressing served on the side. ",
-        "price": "5.49 USD"
-    },
-    {
-        "category": "Salad",
         "name": "Cobb Salad",
         "description": "Grilled chicken, tomato, bacon, crumbled bleu cheese, egg, and seasoned croutons served over lettuce with your choice of dressing.",
         "price": "12.99 USD"
@@ -290,19 +164,13 @@
     {
         "category": "Salad",
         "name": "House Salad - house dressing",
-        "description": "Salad mix topped with tomato, green peppers, onions, and mushrooms. All served in a large pita bowl.\n\nAdd a portion of Chicken shawarma,  steak shawarma, or Gyro for $4.49",
+        "description": "Salad mix topped with tomato, green peppers, onions, and mushrooms. All served in a large pita bowl.  Add a portion of Chicken shawarma,  steak shawarma, or Gyro for $4.49",
         "price": "5.49 USD"
     },
     {
         "category": "Salad",
-        "name": "Greek Salad",
-        "description": "Salad mix topped with tomato, green peppers, onions, and mushrooms. All served in a large pita bowl, with a compliment of feta. Greek pepperoncini and Kalamata olives.\n\nAdd a portion of Chicken shawarma,  steak shawarma, or Gyro for $4.49 ",
-        "price": "6.99 USD"
-    },
-    {
-        "category": "Salad",
         "name": "Tabouli Salad",
-        "description": "Parsley, bulgar, tomatoes, and onion, mixed with lemon juice, seasoned and olive oil. Served on lettuce with pita chips.\nAdd a portion of Chicken shawarma,  steak shawarma, or Gyro for $4.49 ",
+        "description": "Parsley, bulgar, tomatoes, and onion, mixed with lemon juice, seasoned and olive oil. Served on lettuce with pita chips. Add a portion of Chicken shawarma,  steak shawarma, or Gyro for $4.49 ",
         "price": "9.99 USD"
     },
     {
@@ -380,7 +248,7 @@
     {
         "category": "Cold Dishes",
         "name": "Maguro Ringo",
-        "description": "Maguro tossed in anchovy sauce. served with sliced honey crisp apples, and garnished with goat cheese.\n",
+        "description": "Maguro tossed in anchovy sauce. served with sliced honey crisp apples, and garnished with goat cheese. ",
         "price": "16.0 USD"
     },
     {
@@ -522,246 +390,6 @@
         "price": "5.0 USD"
     },
     {
-        "category": "Seafood Meals",
-        "name": "2 Piece Batter Dipped Fish Meal",
-        "description": "Two of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "8.79 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "3 Piece Batter Dipped Fish Meal",
-        "description": "Three of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "9.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "4 Piece Batter Dipped Fish Meal",
-        "description": "Four of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "10.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "Deluxe Seafood Platter",
-        "description": "For those seeking seafood variety, we combine two fish fillets, six shrimp, two seafood stuffed crab shells with your choice of two sides and hush puppies.",
-        "price": "11.49 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "Supreme Sampler",
-        "description": "Two pieces of our famous batter dipped fish, two chicken tenders, and six butterfly shrimp. Served with your choice of two sides and hush puppies.",
-        "price": "10.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "2 Piece Batter Dipped Fish Meal",
-        "description": "Two of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "9.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "3 Piece Batter Dipped Fish Meal",
-        "description": "Three of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "11.49 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "4 Piece Batter Dipped Fish Meal",
-        "description": "Four of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "12.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "Deluxe Seafood Platter",
-        "description": "For those seeking seafood variety, we combine two fish fillets, six shrimp, two seafood stuffed crab shells with your choice of two sides and hush puppies.",
-        "price": "12.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "Supreme Sampler",
-        "description": "Two pieces of our famous batter dipped fish, two chicken tenders, and six butterfly shrimp. Served with your choice of two sides and hush puppies.",
-        "price": "12.49 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "Southern-Style White Fish",
-        "description": "One large, hand-breaded, Southern-Style White Fish Fillet served with your choice of two sides and hush puppies.",
-        "price": "9.09 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "2 Piece Batter Dipped Fish Meal",
-        "description": "Two of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "9.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "3 Piece Batter Dipped Fish Meal",
-        "description": "Three of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "11.49 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "4 Piece Batter Dipped Fish Meal",
-        "description": "Four of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "12.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "Deluxe Seafood Platter",
-        "description": "For those seeking seafood variety, we combine two fish fillets, six shrimp, two seafood stuffed crab shells with your choice of two sides and hush puppies.",
-        "price": "12.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "Supreme Sampler",
-        "description": "Two pieces of our famous batter dipped fish, two chicken tenders, and six butterfly shrimp. Served with your choice of two sides and hush puppies.",
-        "price": "12.49 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "Southern-Style White Fish",
-        "description": "One large, hand-breaded, Southern-Style White Fish Fillet served with your choice of two sides and hush puppies.",
-        "price": "9.09 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "2 Piece Batter Dipped Fish Meal",
-        "description": "Two of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "9.99 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "3 Piece Batter Dipped Fish Meal",
-        "description": "Three of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "11.49 USD"
-    },
-    {
-        "category": "Seafood Meals",
-        "name": "4 Piece Batter Dipped Fish Meal",
-        "description": "Four of our famous batter dipped fish fillets, golden on the outside tender on the inside. Served with your choice of two sides and hush puppies.",
-        "price": "12.99 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Grilled Tilapia Meal",
-        "description": "Kick up the flavor with seasoned tilapia served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "9.49 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Lemon Pepper White Fish Meal",
-        "description": "A fillet of our tender and flaky white fish, seasoned with pepper and tangy lemon. Served on a bed of rice with your choice of two sides and breadstick.",
-        "price": "8.99 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Shrimp Skewers Meal",
-        "description": "Plump seasoned shrimp that are seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "10.49 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Wild Alaskan Salmon Meal",
-        "description": "Wild Alaskan Salmon seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "9.99 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Grilled Tilapia Meal",
-        "description": "Kick up the flavor with seasoned tilapia served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "10.99 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Lemon Pepper White Fish Meal",
-        "description": "A fillet of our tender and flaky white fish, seasoned with pepper and tangy lemon. Served on a bed of rice with your choice of two sides and breadstick.",
-        "price": "9.49 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Shrimp Skewers Meal",
-        "description": "Plump seasoned shrimp that are seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "12.29 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Wild Alaskan Salmon Meal",
-        "description": "Wild Alaskan Salmon seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "12.29 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Grilled Tilapia Meal",
-        "description": "Kick up the flavor with seasoned tilapia served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "10.99 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Lemon Pepper White Fish Meal",
-        "description": "A fillet of our tender and flaky white fish, seasoned with pepper and tangy lemon. Served on a bed of rice with your choice of two sides and breadstick.",
-        "price": "9.49 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Shrimp Skewers Meal",
-        "description": "Plump seasoned shrimp that are seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "12.29 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Wild Alaskan Salmon Meal",
-        "description": "Wild Alaskan Salmon seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "12.29 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Grilled Tilapia Meal",
-        "description": "Kick up the flavor with seasoned tilapia served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "10.99 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Lemon Pepper White Fish Meal",
-        "description": "A fillet of our tender and flaky white fish, seasoned with pepper and tangy lemon. Served on a bed of rice with your choice of two sides and breadstick.",
-        "price": "9.49 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Shrimp Skewers Meal",
-        "description": "Plump seasoned shrimp that are seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "12.29 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Wild Alaskan Salmon Meal",
-        "description": "Wild Alaskan Salmon seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "12.29 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Grilled Tilapia Meal",
-        "description": "Kick up the flavor with seasoned tilapia served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "10.99 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Lemon Pepper White Fish Meal",
-        "description": "A fillet of our tender and flaky white fish, seasoned with pepper and tangy lemon. Served on a bed of rice with your choice of two sides and breadstick.",
-        "price": "9.49 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Shrimp Skewers Meal",
-        "description": "Plump seasoned shrimp that are seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "12.29 USD"
-    },
-    {
-        "category": "Grilled Meals",
-        "name": "Wild Alaskan Salmon Meal",
-        "description": "Wild Alaskan Salmon seared to perfection and served on a bed of rice with your choice of two sides and a breadstick.",
-        "price": "12.29 USD"
-    },
-    {
         "category": "Sandwiches",
         "name": "The Giant Fish Sandwich and Side",
         "description": "Two batter dipped fish fillets on a toasty bun with cracklins, tangy tartar sauce, and shredded lettuce",
@@ -883,14 +511,8 @@
     },
     {
         "category": "Desserts",
-        "name": "Funnel Cake Stix",
-        "description": "A twist on a popular state fair favorite in an easy-to-share serving, these sweet and delicious funnel cake stix are the perfect finish to any Captain D's meal.",
-        "price": "2.99 USD"
-    },
-    {
-        "category": "Desserts",
         "name": "Caramelized Jamun and Rabdi",
-        "description": "Gulab jamun served with sweet, condensed-milk based dish rabdi, made by boiling milk on low\nheat for a long time.",
+        "description": "Gulab jamun served with sweet, condensed-milk based dish rabdi, made by boiling milk on low heat for a long time.",
         "price": "10.35 USD"
     },
     {
@@ -920,7 +542,7 @@
     {
         "category": "Desserts",
         "name": "Apple Crisp",
-        "description": "Granny smith apple filling served with vanilla bean ice cream and finished with crunchy oat topping.\n\n",
+        "description": "Granny smith apple filling served with vanilla bean ice cream and finished with crunchy oat topping.  ",
         "price": "9.0 USD"
     },
     {
@@ -928,12 +550,6 @@
         "name": "Fried Cheesecake",
         "description": "Fried 8 inch flour tortilla filled with cheesecake filling and topped with powdered sugar and strawberry pie filling.",
         "price": "3.99 USD"
-    },
-    {
-        "category": "Desserts",
-        "name": "Brownie Bites",
-        "description": "Ooey, gooey and all sauced up. Enjoy this decadent walnut brownie with caramel sauce and chocolate syrup.\n",
-        "price": "5.99 USD"
     },
     {
         "category": "Desserts",
@@ -946,12 +562,6 @@
         "name": "New Double Cobblers",
         "description": "Apple, Peach or Blackberry baked cobblers with a tender flaky crust ~ enough to share. Mix it up ~ Choose one or two flavors.",
         "price": "6.49 USD"
-    },
-    {
-        "category": "Desserts",
-        "name": "Brownie Bites",
-        "description": "Enjoy these decadent walnut brownie bites filled with toffee morsels and dusted with powdered sugar. Served with caramel sauce and chocolate syrup.",
-        "price": "7.59 USD"
     },
     {
         "category": "Desserts",
@@ -991,12 +601,6 @@
     },
     {
         "category": "Desserts",
-        "name": "Funnel Cake Stix",
-        "description": "A twist on a popular state fair favorite in an easy-to-share serving, these sweet and delicious funnel cake stix are the perfect finish to any Captain D's meal.",
-        "price": "3.99 USD"
-    },
-    {
-        "category": "Desserts",
         "name": "Fresh Baked Cookies",
         "description": "5 mouth watering fresh baked Chocolate Chip cookies!  We don't make them until you order them!  Melt in your mouth!",
         "price": "8.29 USD"
@@ -1027,12 +631,6 @@
     },
     {
         "category": "Salads",
-        "name": "Greek Salad",
-        "description": "Whole (400 Cal.), Half (200 Cal.) Romaine, grape tomatoes, feta, red onions, kalamata olives, salt and pepper tossed in Greek dressing with a pepperoncini. Allergens: Contains Milk",
-        "price": "6.79 USD"
-    },
-    {
-        "category": "Salads",
         "name": "Asian Sesame Salad with Chicken",
         "description": "Whole (410 Cal.), Half (200 Cal.) Chicken raised without antibiotics, romaine, fresh cilantro, toasted almonds, sesame seeds and wonton strips tossed in Asian sesame vinaigrette. Allergens: Contains Wheat, Tree Nuts. May contain Egg",
         "price": "8.79 USD"
@@ -1053,12 +651,6 @@
         "category": "Salads",
         "name": "Golden Temple Salad",
         "description": "Romaine, spinach, spring mix, sprouts, guacamole, hummus, cheddar, Monterey Jack, feta, tomato, cucumber, bell pepper, onion, mushroom, and black olives.",
-        "price": "11.0 USD"
-    },
-    {
-        "category": "Salads",
-        "name": "Greek Salad",
-        "description": "Romaine, spinach, spring mix, feta, tomato, cucumber, onion, mushroom, and Kalamata olives. Served with whole wheat pita.",
         "price": "11.0 USD"
     },
     {
@@ -1112,62 +704,14 @@
     {
         "category": "Salads",
         "name": "Chicken Salad",
-        "description": "Marinated chicken tenders, lettuce, tomatoes, onions, mushrooms, shredded cheese, and bell peppers.\nConsuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness, especially if you have a medical condition.",
+        "description": "Marinated chicken tenders, lettuce, tomatoes, onions, mushrooms, shredded cheese, and bell peppers.",
         "price": "10.99 USD"
     },
     {
         "category": "Salads",
         "name": "Shrimp Salad",
-        "description": "Grilled shrimp, lettuce, tomatoes, onions, mushrooms, shredded cheese, and bell peppers.\nConsuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness, especially if you have a medical condition.",
+        "description": "Grilled shrimp, lettuce, tomatoes, onions, mushrooms, shredded cheese, and bell peppers.",
         "price": "12.38 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Pepperoni Flatbread Pizza",
-        "description": "980 Cal. Thick sliced Pepperoni, fresh mozzarella and our shredded Fontina and mozzarella cheese blend with tomato bell pepper sauce on our flatbread. Allergens: Contains Wheat, Milk",
-        "price": "11.49 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Margherita Flatbread Pizza",
-        "description": "820 Cal. Grape tomatoes, fresh mozzarella and our shredded fontina and mozzarella blend with tomato bell pepper sauce on our flatbread, topped with fresh basil. Allergens: Contains Wheat, Milk",
-        "price": "10.89 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Cheese Flatbread Pizza",
-        "description": "860 Cal. Fontina mozzarella cheese blend and tomato bell pepper sauce on our flatbread. Allergens: Contains Wheat, Milk",
-        "price": "9.59 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "2 Flatbread Pizza Family Feast with Vanilla Cinnamon Rolls",
-        "description": "A meal to feed the whole family, including any 2 Flatbread Pizzas, 2 whole salads and 4 Vanilla Cinnamon Rolls. Serves 4-6.",
-        "price": "36.39 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "3 Flatbread Pizza Family Feast with Vanilla Cinnamon Rolls",
-        "description": "A meal to feed the whole family, including any 3 Flatbread Pizzas, 2 whole salads, and 4 Vanilla Cinnamon Rolls. Serves 4-6.",
-        "price": "41.09 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Pepperoni Flatbread Pizza",
-        "description": "980 Cal. Thick sliced Pepperoni, fresh mozzarella and our shredded Fontina and mozzarella cheese blend with tomato bell pepper sauce on our flatbread. Allergens: Contains Wheat, Milk",
-        "price": "11.49 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Margherita Flatbread Pizza",
-        "description": "820 Cal. Grape tomatoes, fresh mozzarella and our shredded fontina and mozzarella blend with tomato bell pepper sauce on our flatbread, topped with fresh basil. Allergens: Contains Wheat, Milk",
-        "price": "10.89 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Cheese Flatbread Pizza",
-        "description": "860 Cal. Fontina mozzarella cheese blend and tomato bell pepper sauce on our flatbread. Allergens: Contains Wheat, Milk",
-        "price": "9.59 USD"
     },
     {
         "category": "Pizza",
@@ -1180,54 +724,6 @@
         "name": "Cheese Pizza",
         "description": "Hot and delicious cheese pizza made with our special tomato sauce and a generous topping of classic Italian mozzarella cheese.  ",
         "price": "5.99 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Pepperoni Flatbread Pizza",
-        "description": "980 Cal. Thick sliced Pepperoni, fresh mozzarella and our shredded Fontina and mozzarella cheese blend with tomato bell pepper sauce on our flatbread. Allergens: Contains Wheat, Milk",
-        "price": "11.49 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Margherita Flatbread Pizza",
-        "description": "820 Cal. Grape tomatoes, fresh mozzarella and our shredded fontina and mozzarella blend with tomato bell pepper sauce on our flatbread, topped with fresh basil. Allergens: Contains Wheat, Milk",
-        "price": "10.89 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Cheese Flatbread Pizza",
-        "description": "860 Cal. Fontina mozzarella cheese blend and tomato bell pepper sauce on our flatbread. Allergens: Contains Wheat, Milk",
-        "price": "9.59 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Pepperoni Flatbread Pizza",
-        "description": "980 Cal. Thick sliced Pepperoni, fresh mozzarella and our shredded Fontina and mozzarella cheese blend with tomato bell pepper sauce on our flatbread. Allergens: Contains Wheat, Milk",
-        "price": "11.49 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Margherita Flatbread Pizza",
-        "description": "820 Cal. Grape tomatoes, fresh mozzarella and our shredded fontina and mozzarella blend with tomato bell pepper sauce on our flatbread, topped with fresh basil. Allergens: Contains Wheat, Milk",
-        "price": "10.89 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "Cheese Flatbread Pizza",
-        "description": "860 Cal. Fontina mozzarella cheese blend and tomato bell pepper sauce on our flatbread. Allergens: Contains Wheat, Milk",
-        "price": "9.59 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "2 Flatbread Pizza Family Feast with Vanilla Cinnamon Rolls",
-        "description": "A meal to feed the whole family, including any 2 Flatbread Pizzas, 2 whole salads and 4 Vanilla Cinnamon Rolls. Serves 4-6.",
-        "price": "36.39 USD"
-    },
-    {
-        "category": "Pizza",
-        "name": "3 Flatbread Pizza Family Feast with Vanilla Cinnamon Rolls",
-        "description": "A meal to feed the whole family, including any 3 Flatbread Pizzas, 2 whole salads, and 4 Vanilla Cinnamon Rolls. Serves 4-6.",
-        "price": "41.09 USD"
     },
     {
         "category": "Pizza",
