@@ -23,11 +23,9 @@ Question: {input}"""
 
 
 class RAG(ApproachesBase):
-    def run(
-        self, collection_name: str, messages: list, temperature: float, limit: int, score_threshold: float
-    ) -> tuple[list[Document], str]:
+    def run(self, messages: list, temperature: float, limit: int, score_threshold: float) -> tuple[list[Document], str]:
         # Create a vector store retriever
-        namespace = f"{self._database_name}.{collection_name}"
+        namespace = f"{self._database_name}.{self._collection_name}"
         vector_store = vector_store_api(
             namespace=namespace, connection_string=self._connection_string, embedding=self._embedding
         )

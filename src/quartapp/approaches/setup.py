@@ -33,6 +33,7 @@ class Setup(ABC):
         openai_chat_deployment: str,
         connection_string: str,
         database_name: str,
+        collection_name: str,
         api_key: SecretStr,
         api_version: str,
         azure_endpoint: str,
@@ -49,12 +50,14 @@ class Setup(ABC):
         self.vector_search = Vector(
             connection_string=connection_string,
             database_name=database_name,
+            collection_name=collection_name,
             embedding=self._openai_setup._embeddings_api,
             chat=self._openai_setup._chat_api,
         )
         self.rag = RAG(
             connection_string=connection_string,
             database_name=database_name,
+            collection_name=collection_name,
             embedding=self._openai_setup._embeddings_api,
             chat=self._openai_setup._chat_api,
         )
