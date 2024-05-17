@@ -11,14 +11,13 @@ import { AnswerIcon } from "./AnswerIcon";
 interface Props {
     answer: ChatAppResponse;
     isSelected?: boolean;
-    isStreaming: boolean;
     onThoughtProcessClicked: () => void;
     onSupportingContentClicked: () => void;
 }
 
-export const Answer = ({ answer, isSelected, isStreaming, onThoughtProcessClicked, onSupportingContentClicked }: Props) => {
+export const Answer = ({ answer, isSelected, onThoughtProcessClicked, onSupportingContentClicked }: Props) => {
     const messageContent = answer.choices[0].message.content;
-    const parsedAnswer = useMemo(() => parseAnswerToHtml(messageContent, isStreaming), [answer]);
+    const parsedAnswer = useMemo(() => parseAnswerToHtml(messageContent), [answer]);
 
     const sanitizedAnswerHtml = DOMPurify.sanitize(parsedAnswer.answerHtml);
 

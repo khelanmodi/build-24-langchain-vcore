@@ -1,23 +1,23 @@
-import { parseSupportingContentItem } from "./SupportingContentParser";
-
 import styles from "./SupportingContent.module.css";
 
+import { DataPoint } from "../../api";
+
 interface Props {
-    supportingContent: string[] | { json: string[] };
+    supportingContent: DataPoint;
 }
 
 export const SupportingContent = ({ supportingContent }: Props) => {
-    const textItems = Array.isArray(supportingContent) ? supportingContent : supportingContent.json;
+    const textItems = supportingContent.json ? supportingContent.json : [];
     return (
         <ul className={styles.supportingContentNavList}>
             {textItems.map((c, ind) => {
-                const parsed = parseSupportingContentItem(c);
+                const parsed = c;
                 return (
                     <li className={styles.supportingContentItem} key={ind}>
                         <h4 className={styles.supportingContentItemHeader}>
-                            {parsed.title} ({parsed.category}) [{parsed.collection}]
+                            {parsed.name} ({parsed.category}) [{parsed.collection}]
                         </h4>
-                        <p className={styles.supportingContentItemText} dangerouslySetInnerHTML={{ __html: parsed.content }} />
+                        <p className={styles.supportingContentItemText} dangerouslySetInnerHTML={{ __html: parsed.description }} />
                         <p className={styles.supportingContentItemText}>{parsed.price}</p>
                     </li>
                 );

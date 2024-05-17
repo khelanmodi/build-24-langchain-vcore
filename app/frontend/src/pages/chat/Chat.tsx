@@ -1,8 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { Panel, DefaultButton, Modal, SpinButton, IconButton, TextField, Slider } from "@fluentui/react";
-import { Button } from "@fluentui/react-components";
+import { Panel, DefaultButton, SpinButton, Slider } from "@fluentui/react";
 import cosmos from "../../assets/FeaturedDefault.png";
-import readNDJSONStream from "ndjson-readablestream";
 
 import styles from "./Chat.module.css";
 
@@ -15,72 +13,26 @@ import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel
 import { SettingsButton } from "../../components/SettingsButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 import { VectorSettings } from "../../components/VectorSettings";
+import { BuyModal } from "../../components/BuyModal";
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [temperature, setTemperature] = useState<number>(0.3);
-    const [address, setAddress] = useState<string>("");
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
     const [scoreThreshold, setScoreThreshold] = useState<number>(0.5);
     const [retrievalMode, setRetrievalMode] = useState<RetrievalMode>(RetrievalMode.Hybrid);
-    const [shouldStream, setShouldStream] = useState<boolean>(false);
 
     const lastQuestionRef = useRef<string>("");
-    const chatMessageStreamEnd = useRef<HTMLDivElement | null>(null);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isBuy, setIsBuy] = useState<boolean>(false);
-    const [isStreaming, setIsStreaming] = useState<boolean>(false);
+    const [address, setAddress] = useState<string>("");
     const [error, setError] = useState<unknown>();
 
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: ChatAppResponse][]>([]);
-    const [streamedAnswers, setStreamedAnswers] = useState<[user: string, response: ChatAppResponse][]>([]);
-
-    const handleAsyncRequest = async (question: string, answers: [string, ChatAppResponse][], setAnswers: Function, responseBody: ReadableStream<any>) => {
-        let answer: string = "";
-        let askResponse: ChatAppResponse = {} as ChatAppResponse;
-
-        const updateState = (newContent: string) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    answer += newContent;
-                    const latestResponse: ChatAppResponse = {
-                        ...askResponse,
-                        choices: [{ ...askResponse.choices[0], message: { content: answer, role: askResponse.choices[0].message.role } }],
-                    };
-                    setStreamedAnswers([...answers, [question, latestResponse]]);
-                    resolve(null);
-                }, 33);
-            });
-        };
-        try {
-            setIsStreaming(true);
-            for await (const event of readNDJSONStream(responseBody)) {
-                if (event["choices"] && event["choices"][0]["context"] && event["choices"][0]["context"]["data_points"]) {
-                    event["choices"][0]["message"] = event["choices"][0]["delta"];
-                    askResponse = event as ChatAppResponse;
-                } else if (event["choices"] && event["choices"][0]["delta"]["content"]) {
-                    setIsLoading(false);
-                    await updateState(event["choices"][0]["delta"]["content"]);
-                } else if (event["choices"] && event["choices"][0]["context"]) {
-                    // Update context with new keys from latest event
-                    askResponse.choices[0].context = { ...askResponse.choices[0].context, ...event["choices"][0]["context"] };
-                } else if (event["error"]) {
-                    throw Error(event["error"]);
-                }
-            }
-        } finally {
-            setIsStreaming(false);
-        }
-        const fullResponse: ChatAppResponse = {
-            ...askResponse,
-            choices: [{ ...askResponse.choices[0], message: { content: answer, role: askResponse.choices[0].message.role } }],
-        };
-        return fullResponse;
-    };
 
     const checkthenMakeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
@@ -106,12 +58,11 @@ const Chat = () => {
 
             const request: ChatAppRequest = {
                 messages: [...messages, { content: question, role: "user" }],
-                stream: shouldStream,
                 context: {
                     overrides: {
-                        score_threshold: scoreThreshold,
                         top: retrieveCount,
                         temperature: temperature,
+                        score_threshold: scoreThreshold,
                         retrieval_mode: retrievalMode,
                     },
                 },
@@ -121,16 +72,11 @@ const Chat = () => {
             if (!response.body) {
                 throw Error("No response body");
             }
-            if (shouldStream) {
-                const parsedResponse: ChatAppResponse = await handleAsyncRequest(question, answers, setAnswers, response.body);
-                setAnswers([...answers, [question, parsedResponse]]);
-            } else {
-                const parsedResponse: ChatAppResponseOrError = await response.json();
-                if (response.status > 299 || !response.ok) {
-                    throw Error(parsedResponse.error || "Unknown error");
-                }
-                setAnswers([...answers, [question, parsedResponse as ChatAppResponse]]);
+            const parsedResponse: ChatAppResponseOrError = await response.json();
+            if (response.status > 299 || !response.ok) {
+                throw Error(parsedResponse.error || "Unknown error");
             }
+            setAnswers([...answers, [question, parsedResponse as ChatAppResponse]]);
         } catch (e) {
             setError(e);
         } finally {
@@ -143,13 +89,8 @@ const Chat = () => {
         error && setError(undefined);
         setActiveAnalysisPanelTab(undefined);
         setAnswers([]);
-        setStreamedAnswers([]);
         setIsLoading(false);
-        setIsStreaming(false);
     };
-
-    useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
-    useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "auto" }), [streamedAnswers]);
 
     const onTemperatureChange = (
         newValue: number,
@@ -157,20 +98,6 @@ const Chat = () => {
         event?: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent | React.KeyboardEvent,
     ) => {
         setTemperature(newValue);
-    };
-
-    const onAddressChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        if (!newValue) {
-            setAddress("");
-        } else if (newValue.length <= 1000) {
-            setAddress(newValue);
-        }
-    };
-
-    const onHideModal = (
-        event?: React.MouseEventHandler<HTMLElement, MouseEvent> | React.MouseEvent<HTMLElement | HTMLButtonElement, MouseEvent> | undefined,
-    ) => {
-        setIsBuy(false);
     };
 
     const onScoreThresholdChange = (
@@ -183,10 +110,6 @@ const Chat = () => {
 
     const onRetrieveCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
         setRetrieveCount(parseInt(newValue || "3"));
-    };
-
-    const onShouldStreamChange = (_ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
-        setShouldStream(!!checked);
     };
 
     const onExampleClicked = (example: string) => {
@@ -220,38 +143,20 @@ const Chat = () => {
                         </div>
                     ) : (
                         <div className={styles.chatMessageStream}>
-                            {isStreaming &&
-                                streamedAnswers.map((streamedAnswer, index) => (
-                                    <div key={index}>
-                                        <UserChatMessage message={streamedAnswer[0]} />
-                                        <div className={styles.chatMessageGpt}>
-                                            <Answer
-                                                isStreaming={true}
-                                                key={index}
-                                                answer={streamedAnswer[1]}
-                                                isSelected={false}
-                                                onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
-                                                onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
-                                            />
-                                        </div>
+                            {answers.map((answer, index) => (
+                                <div key={index}>
+                                    <UserChatMessage message={answer[0]} />
+                                    <div className={styles.chatMessageGpt}>
+                                        <Answer
+                                            key={index}
+                                            answer={answer[1]}
+                                            isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
+                                            onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
+                                            onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
+                                        />
                                     </div>
-                                ))}
-                            {!isStreaming &&
-                                answers.map((answer, index) => (
-                                    <div key={index}>
-                                        <UserChatMessage message={answer[0]} />
-                                        <div className={styles.chatMessageGpt}>
-                                            <Answer
-                                                isStreaming={false}
-                                                key={index}
-                                                answer={answer[1]}
-                                                isSelected={selectedAnswer === index && activeAnalysisPanelTab !== undefined}
-                                                onThoughtProcessClicked={() => onToggleTab(AnalysisPanelTabs.ThoughtProcessTab, index)}
-                                                onSupportingContentClicked={() => onToggleTab(AnalysisPanelTabs.SupportingContentTab, index)}
-                                            />
-                                        </div>
-                                    </div>
-                                ))}
+                                </div>
+                            ))}
                             {isLoading && (
                                 <>
                                     <UserChatMessage message={lastQuestionRef.current} />
@@ -260,33 +165,11 @@ const Chat = () => {
                                     </div>
                                 </>
                             )}
-                            {isBuy && (
+                            {isBuy ? (
                                 <>
-                                    <Modal className={styles.buyContainer} isOpen={isBuy} onDismiss={onHideModal} isBlocking={true}>
-                                        <div>
-                                            <IconButton iconProps={{ iconName: "Cancel" }} ariaLabel="Close popup modal" onClick={onHideModal} />
-                                            <div className={styles.buyContainer}>
-                                                <div className={styles.buyMessage}>Enter your address:</div>
-                                            </div>
-                                            <div className={styles.buyContainer}>
-                                                <TextField
-                                                    className={styles.buyInput}
-                                                    value={address}
-                                                    onChange={onAddressChange}
-                                                    multiline
-                                                    resizable={false}
-                                                    borderless
-                                                />
-                                            </div>
-                                            <div className={styles.buyContainer}>
-                                                <Button className={styles.buyMessage} size="large" onClick={onHideModal}>
-                                                    Buy Now?
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </Modal>
+                                    <BuyModal isBuy={isBuy} setIsBuy={setIsBuy} address={address} setAddress={setAddress} />
                                 </>
-                            )}
+                            ) : null}
                             {error ? (
                                 <>
                                     <UserChatMessage message={lastQuestionRef.current} />
@@ -295,7 +178,6 @@ const Chat = () => {
                                     </div>
                                 </>
                             ) : null}
-                            <div ref={chatMessageStreamEnd} />
                         </div>
                     )}
 
@@ -355,7 +237,7 @@ const Chat = () => {
                         className={styles.chatSettingsSeparator}
                         label="Retrieve this many search results:"
                         min={1}
-                        max={10}
+                        max={20}
                         defaultValue={retrieveCount.toString()}
                         onChange={onRetrieveCountChange}
                     />
