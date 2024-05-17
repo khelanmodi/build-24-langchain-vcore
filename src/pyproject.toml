@@ -8,15 +8,15 @@ dependencies = [
     "Hypercorn",
     "langchain",
     "langchain_openai",
+    "pymongo"
     ]
 
 [project.optional-dependencies]
 dev = [
-    "pymongo",
-    "jq",
     "ipykernel",
     "pytest",
     "pytest-cov",
+    "pip-tools",
     "pre-commit",
     "ruff",
     "black",
