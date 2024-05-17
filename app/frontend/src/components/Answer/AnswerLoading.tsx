@@ -7,7 +7,7 @@ import { AnswerIcon } from "./AnswerIcon";
 export const AnswerLoading = () => {
     const animatedStyles = useSpring({
         from: { opacity: 0 },
-        to: { opacity: 1 },
+        to: { opacity: 1 }
     });
 
     return (
