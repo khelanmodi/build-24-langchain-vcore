@@ -1,5 +1,5 @@
 [project]
-name = "backend"
+name = "quartapp"
 version = "1.0.0"
 description = "Demo Chat Application to demonstrate retrieval augmented generation using Azure Open AI, Azure Cosmos DB for MongoDB vCore, and lang chain."
 dependencies = [

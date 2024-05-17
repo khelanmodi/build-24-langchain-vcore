@@ -3,8 +3,8 @@ import os
 
 from pydantic.v1 import SecretStr
 
-from backend.approaches.schemas import Context, DataPoint, JSONDataPoint, Message, RetrievalResponse, Thought
-from backend.approaches.setup import Setup
+from quartapp.approaches.schemas import Context, DataPoint, JSONDataPoint, Message, RetrievalResponse, Thought
+from quartapp.approaches.setup import Setup
 
 
 class AppConfig:

@@ -2,7 +2,7 @@
 
 This is a React Web App with a simple chat interface empowered with some developer options to perform RAG.
 
-To install the application requirements run this command inside the `app/frontend/` directory:
+To install the application requirements run this command inside the `frontend/` directory:
 
 ```bash
 nvm use 18
@@ -18,7 +18,7 @@ npm install
 > ```
 >
 
-To start the application run inside the `app/frontend/` directory:
+To start the application run inside the `frontend/` directory:
 
 ```bash
 npm run dev

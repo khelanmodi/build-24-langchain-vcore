@@ -29,7 +29,7 @@ The demo will feature a streamlined ordering system tailored for various food ch
 1. **Install the development dependencies as an editable package:**
 
     ```bash
-    python3 -m pip install -e 'app[dev]'
+    python3 -m pip install -e 'src[dev]'
     ```
 
 1. **Run the [notebook](./CBD_Mongo_vCore.ipynb) to generate the .env file and test out everything**

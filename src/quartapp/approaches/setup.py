@@ -2,9 +2,9 @@ from abc import ABC
 
 from pydantic.v1 import SecretStr
 
-from backend.approaches.rag import RAG
-from backend.approaches.utils import chat_api, embeddings_api
-from backend.approaches.vector import Vector
+from quartapp.approaches.rag import RAG
+from quartapp.approaches.utils import chat_api, embeddings_api
+from quartapp.approaches.vector import Vector
 
 
 class OpenAISetup(ABC):
