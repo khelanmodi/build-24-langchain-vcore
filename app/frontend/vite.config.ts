@@ -10,7 +10,7 @@ export default defineConfig({
         sourcemap: true,
         rollupOptions: {
             output: {
-                manualChunks: id => {
+                manualChunks: (id) => {
                     if (id.includes("@fluentui/react-icons")) {
                         return "fluentui-icons";
                     } else if (id.includes("@fluentui/react")) {
@@ -18,10 +18,10 @@ export default defineConfig({
                     } else if (id.includes("node_modules")) {
                         return "vendor";
                     }
-                }
-            }
+                },
+            },
         },
-        target: "esnext"
+        target: "esnext",
     },
     server: {
         proxy: {

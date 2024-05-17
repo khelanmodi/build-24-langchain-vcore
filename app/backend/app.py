@@ -1,29 +1,16 @@
-from pathlib import Path
 from typing import Any
 
-from quart import Quart, Response, jsonify, request, send_file, send_from_directory
+from quart import Quart, Response, jsonify, request
 
 from backend.config import AppConfig
 
 
 def create_app(app_config: AppConfig, test_config=None):
-    app = Quart(__name__, static_folder="static")
+    app = Quart(__name__, template_folder="../frontend", static_folder="../frontend/static")
 
     if test_config:
         # load the test config if passed in
         app.config.from_mapping(test_config)
-
-    @app.route("/")
-    async def index():
-        return await send_file(Path(__file__).resolve().parent / "static/index.html")
-
-    @app.route("/favicon.ico")
-    async def favicon():
-        return await send_file(Path(__file__).resolve().parent / "static/favicon.ico")
-
-    @app.route("/assets/<path:path>")
-    async def assets(path):
-        return await send_from_directory(Path(__file__).resolve().parent / "static" / "assets", path)
 
     @app.route("/hello", methods=["GET"])
     async def hello() -> Response:

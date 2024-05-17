@@ -10,15 +10,3 @@ services:
     project: ./app/backend
     language: py
     host: appservice
-    hooks:
-      prepackage:
-        windows:
-          shell: pwsh
-          run:  cd ../frontend;npm install;npm run build
-          interactive: false
-          continueOnError: false
-        posix:
-          shell: sh
-          run:  cd ../frontend;npm install;npm run build
-          interactive: false
-          continueOnError: false

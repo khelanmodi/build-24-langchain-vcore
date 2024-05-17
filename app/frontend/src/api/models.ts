@@ -1,7 +1,7 @@
 export const enum RetrievalMode {
     Hybrid = "rag",
     Vectors = "vector",
-    Text = "keyword"
+    Text = "keyword",
 }
 
 export type ChatAppRequestOverrides = {
