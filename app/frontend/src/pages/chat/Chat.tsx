@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import { Panel, DefaultButton, Modal, SpinButton, IconButton, TextField, Slider } from "@fluentui/react";
-import { Button } from "@fluentui/react-components";
 import cosmos from "../../assets/FeaturedDefault.png";
 import readNDJSONStream from "ndjson-readablestream";
 
@@ -167,12 +166,6 @@ const Chat = () => {
         }
     };
 
-    const onHideModal = (
-        event?: React.MouseEventHandler<HTMLElement, MouseEvent> | React.MouseEvent<HTMLElement | HTMLButtonElement, MouseEvent> | undefined,
-    ) => {
-        setIsBuy(false);
-    };
-
     const onScoreThresholdChange = (
         newValue: number,
         range?: [number, number],
@@ -262,9 +255,9 @@ const Chat = () => {
                             )}
                             {isBuy && (
                                 <>
-                                    <Modal className={styles.buyContainer} isOpen={isBuy} onDismiss={onHideModal} isBlocking={true}>
+                                    <Modal className={styles.buyContainer} isOpen={isBuy} onDismiss={() => setIsBuy(false)} isBlocking={true}>
                                         <div>
-                                            <IconButton iconProps={{ iconName: "Cancel" }} ariaLabel="Close popup modal" onClick={onHideModal} />
+                                            <IconButton iconProps={{ iconName: "Cancel" }} ariaLabel="Close popup modal" onClick={() => setIsBuy(false)} />
                                             <div className={styles.buyContainer}>
                                                 <div className={styles.buyMessage}>Enter your address:</div>
                                             </div>
@@ -279,9 +272,9 @@ const Chat = () => {
                                                 />
                                             </div>
                                             <div className={styles.buyContainer}>
-                                                <Button className={styles.buyMessage} size="large" onClick={onHideModal}>
+                                                <DefaultButton className={styles.buyMessage} onClick={() => setIsBuy(false)}>
                                                     Buy Now?
-                                                </Button>
+                                                </DefaultButton>
                                             </div>
                                         </div>
                                     </Modal>
@@ -304,7 +297,7 @@ const Chat = () => {
                             clearOnSend
                             placeholder="Type a new question (e.g. Are there any high protein recipes available?)"
                             disabled={isLoading}
-                            onSend={(question) => checkthenMakeApiRequest(question)}
+                            onSend={question => checkthenMakeApiRequest(question)}
                         />
                     </div>
                 </div>
