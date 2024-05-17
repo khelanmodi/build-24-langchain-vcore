@@ -15,6 +15,7 @@ class AppConfig:
         openai_chat_deployment = os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "chat-gpt")
         connection_string = os.getenv("AZURE_COSMOS_CONNECTION_STRING", "<YOUR-COSMOS-DB-CONNECTION-STRING>")
         database_name = os.getenv("AZURE_COSMOS_DATABASE_NAME", "<COSMOS-DB-NEW-UNIQUE-DATABASE-NAME>")
+        collection_name = os.getenv("AZURE_COSMOS_COLLECTION_NAME", "<COSMOS-DB-NEW-UNIQUE-DATABASE-NAME>")
         api_key = SecretStr(os.getenv("AZURE_OPENAI_API_KEY", "<YOUR-DEPLOYMENT-KEY>"))
         api_version = os.getenv("OPENAI_API_VERSION", "2023-09-15-preview")
         azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "https://<YOUR-OPENAI-DEPLOYMENT-NAME>.openai.azure.com/")
@@ -25,17 +26,16 @@ class AppConfig:
             openai_chat_deployment,
             connection_string,
             database_name,
+            collection_name,
             api_key,
             api_version,
             azure_endpoint,
         )
 
     def run_vector(
-        self, collection_name: str, messages: list, temperature: float, limit: int, score_threshold: float
+        self, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
-        vector_response, answer = self.setup.vector_search.run(
-            collection_name, messages, temperature, limit, score_threshold
-        )
+        vector_response, answer = self.setup.vector_search.run(messages, temperature, limit, score_threshold)
         if vector_response is None or len(vector_response) == 0:
             return [
                 RetrievalResponse(
@@ -51,7 +51,7 @@ class AppConfig:
             Description: {top_result.get('description')}
             Price: {top_result.get('price')}
             Category: {top_result.get('category')}
-            Collection: {collection_name}
+            Collection: {self.setup.vector_search._collection_name}
         """
 
         data_points: DataPoint = DataPoint(json=[])
@@ -66,7 +66,7 @@ class AppConfig:
             json_data_point.description = raw_data.get("description")
             json_data_point.price = raw_data.get("price")
             json_data_point.category = raw_data.get("category")
-            json_data_point.collection = collection_name
+            json_data_point.collection = self.setup.vector_search._collection_name
             data_points.json.append(json_data_point)
 
         context: Context = Context(data_points=data_points, thoughts=thoughts)
@@ -76,9 +76,9 @@ class AppConfig:
         return [RetrievalResponse(context, index, message)]
 
     def run_rag(
-        self, collection_name: str, messages: list, temperature: float, limit: int, score_threshold: float
+        self, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
-        rag_response, answer = self.setup.rag.run(collection_name, messages, temperature, limit, score_threshold)
+        rag_response, answer = self.setup.rag.run(messages, temperature, limit, score_threshold)
         if rag_response is None or len(rag_response) == 0:
             return [
                 RetrievalResponse(
@@ -100,7 +100,7 @@ class AppConfig:
             json_data_point.description = raw_data.get("description")
             json_data_point.price = raw_data.get("price")
             json_data_point.category = raw_data.get("category")
-            json_data_point.collection = collection_name
+            json_data_point.collection = self.setup.rag._collection_name
             data_points.json.append(json_data_point)
 
         context: Context = Context(data_points=data_points, thoughts=thoughts)
@@ -111,7 +111,7 @@ class AppConfig:
         return [RetrievalResponse(context, index, message)]
 
     def run_keyword(
-        self, collection_name: str, messages: list, limit: int, temperature: float, score_threshold: float
+        self, messages: list, limit: int, temperature: float, score_threshold: float
     ) -> list[RetrievalResponse]:
         keyword_response = None
         if keyword_response is None or len(keyword_response) == 0:
