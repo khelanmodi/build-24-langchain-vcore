@@ -1,4 +1,4 @@
-name: Run Python linter, and formatter
+name: Python Linter and Formatter
 
 on:
   push:

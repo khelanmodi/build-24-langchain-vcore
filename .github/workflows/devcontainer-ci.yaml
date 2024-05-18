@@ -1,4 +1,4 @@
-name: Check Dev Container
+name: DevContainer CI
 
 on:
   push:
