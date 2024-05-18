@@ -32,7 +32,7 @@ class Message:
     content: str | None = None
     role: str | None = None
 
-    def dict(self) -> dict:
+    def to_dict(self) -> dict:
         return {"content": self.content, "role": self.role}
 
 
