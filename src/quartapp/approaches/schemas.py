@@ -32,9 +32,13 @@ class Message:
     content: str | None = None
     role: str | None = None
 
+    def to_dict(self) -> dict:
+        return {"content": self.content, "role": self.role}
+
 
 @dataclass
 class RetrievalResponse:
     context: Context
     index: int
     message: Message
+    session_state: str

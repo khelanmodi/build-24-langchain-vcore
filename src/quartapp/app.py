@@ -3,6 +3,7 @@ from typing import Any
 
 from quart import Quart, Response, jsonify, request, send_file, send_from_directory
 
+from quartapp.approaches.schemas import RetrievalResponse
 from quartapp.config import AppConfig
 
 
@@ -33,24 +34,52 @@ def create_app(app_config: AppConfig, test_config=None):
     async def chat() -> Any:
         if not request.is_json:
             return jsonify({"error": "request must be json"}), 415
+
+        # Get the request body
         body = await request.get_json()
-        messages = body.get("messages", [])
+
+        # Get the request message, session_state, context from the request body
+        messages: list = body.get("messages", [])
+        session_state = body.get("session_state", None)
         context = body.get("context", {})
+
+        # Get the overrides from the context
         override = context.get("overrides", {})
-        retrieval_mode = override.get("retrieval_mode", "vector")
-        temperature = override.get("temperature", 0.3)
-        top = override.get("top", 3)
-        score_threshold = override.get("score_threshold", 0.5)
+        retrieval_mode: str = override.get("retrieval_mode", "vector")
+        temperature: float = override.get("temperature", 0.3)
+        top: int = override.get("top", 3)
+        score_threshold: float = override.get("score_threshold", 0.5)
 
         if retrieval_mode == "vector":
-            vector_answer = app_config.run_vector(messages, temperature, top, score_threshold)
+            vector_answer: list[RetrievalResponse] = app_config.run_vector(
+                session_state=session_state,
+                messages=messages,
+                temperature=temperature,
+                limit=top,
+                score_threshold=score_threshold,
+            )
             return jsonify({"choices": vector_answer})
+
         elif retrieval_mode == "rag":
-            rag_answer = app_config.run_rag(messages, temperature, top, score_threshold)
+            rag_answer: list[RetrievalResponse] = app_config.run_rag(
+                session_state=session_state,
+                messages=messages,
+                temperature=temperature,
+                limit=top,
+                score_threshold=score_threshold,
+            )
             return jsonify({"choices": rag_answer})
+
         elif retrieval_mode == "keyword":
-            keyword_answer = app_config.run_keyword(messages, temperature, top, score_threshold)
+            keyword_answer: list[RetrievalResponse] = app_config.run_keyword(
+                session_state=session_state,
+                messages=messages,
+                temperature=temperature,
+                limit=top,
+                score_threshold=score_threshold,
+            )
             return jsonify({"choices": keyword_answer})
+
         else:
             return jsonify({"error": "Not Implemented!"}), 400
 

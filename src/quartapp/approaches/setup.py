@@ -3,9 +3,10 @@ from abc import ABC
 from langchain_community.vectorstores import AzureCosmosDBVectorSearch
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from pydantic.v1 import SecretStr
+from pymongo.collection import Collection
 
 from quartapp.approaches.rag import RAG
-from quartapp.approaches.utils import chat_api, embeddings_api, vector_store_api
+from quartapp.approaches.utils import chat_api, embeddings_api, setup_users_collection, vector_store_api
 from quartapp.approaches.vector import Vector
 
 
@@ -27,12 +28,14 @@ class DatabaseSetup(ABC):
         collection_name: str,
         index_name: str,
         vector_store_api: AzureCosmosDBVectorSearch,
+        users_collection: Collection,
     ):
         self._connection_string = connection_string
         self._database_name = database_name
         self._collection_name = collection_name
         self._index_name = index_name
         self._vector_store_api = vector_store_api
+        self._users_collection = users_collection
 
 
 class Setup(ABC):
@@ -76,6 +79,7 @@ class Setup(ABC):
                 namespace=f"{database_name}.{collection_name}",
                 embedding=self._openai_setup._embeddings_api,
             ),
+            users_collection=setup_users_collection(connection_string=connection_string, database_name=database_name),
         )
 
         self.vector_search = Vector(

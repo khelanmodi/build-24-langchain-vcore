@@ -42,7 +42,7 @@ def read_data(file_path) -> list[Document]:
     return documents
 
 
-async def create_collection_with_embeddings(
+async def generate_embeddings_and_add_data(
     documents: list[Document],
     collection: Collection,
     index_name: str,
@@ -63,11 +63,14 @@ async def add_data(input_args: Namespace) -> None:
     logging.info("✨ Successfully Read the data...")
 
     mongo_client: MongoClient = MongoClient(setup._database_setup._connection_string)
+
+    # Create the database
     db = mongo_client[setup._database_setup._database_name]
 
+    # Create the collection
     collection: Collection = db[setup._database_setup._collection_name]
 
-    vector_store = await create_collection_with_embeddings(
+    vector_store = await generate_embeddings_and_add_data(
         documents=documents,
         collection=collection,
         index_name=setup._database_setup._index_name,

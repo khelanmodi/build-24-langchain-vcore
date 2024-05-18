@@ -1,5 +1,6 @@
 import json
 import os
+from uuid import uuid4
 
 from pydantic.v1 import SecretStr
 
@@ -34,13 +35,27 @@ class AppConfig:
             azure_endpoint=azure_endpoint,
         )
 
+    def add_to_cosmos(self, old_messages: list, new_message: dict, session_state: str | None, id: str) -> None:
+        is_first_message: bool = True if not session_state else False
+        if is_first_message:
+            old_messages.append(new_message)
+            self.setup._database_setup._users_collection.insert_one({"_id": id, "messages": old_messages})
+            return
+        self.setup._database_setup._users_collection.update_one({"_id": id}, {"$push": {"messages": old_messages[-1]}})
+        self.setup._database_setup._users_collection.update_one({"_id": id}, {"$push": {"messages": new_message}})
+        return
+
     def run_vector(
-        self, messages: list, temperature: float, limit: int, score_threshold: float
+        self, session_state: str | None, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
         vector_response, answer = self.setup.vector_search.run(messages, temperature, limit, score_threshold)
+
+        new_session_state: str = session_state if session_state else str(uuid4())
+
         if vector_response is None or len(vector_response) == 0:
             return [
                 RetrievalResponse(
+                    session_state=new_session_state,
                     context=Context(DataPoint([JSONDataPoint()]), [Thought()]),
                     index=0,
                     message=Message(content="No results found", role="assistant"),
@@ -75,15 +90,27 @@ class AppConfig:
 
         index: int = vector_response[0].metadata.get("seq_num", 0)
         message: Message = Message(content=message_content, role="assistant")
-        return [RetrievalResponse(context, index, message)]
+
+        self.add_to_cosmos(
+            old_messages=messages,
+            new_message=message.to_dict(),
+            session_state=session_state,
+            id=new_session_state,
+        )
+
+        return [RetrievalResponse(context, index, message, new_session_state)]
 
     def run_rag(
-        self, messages: list, temperature: float, limit: int, score_threshold: float
+        self, session_state: str | None, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
         rag_response, answer = self.setup.rag.run(messages, temperature, limit, score_threshold)
+
+        new_session_state: str = session_state if session_state else str(uuid4())
+
         if rag_response is None or len(rag_response) == 0:
             return [
                 RetrievalResponse(
+                    session_state=new_session_state,
                     context=Context(DataPoint([JSONDataPoint()]), [Thought()]),
                     index=0,
                     message=Message(content=answer, role="assistant"),
@@ -110,15 +137,26 @@ class AppConfig:
         index: int = rag_response[0].metadata.get("seq_num", 0)
         message: Message = Message(content=answer, role="assistant")
 
-        return [RetrievalResponse(context, index, message)]
+        self.add_to_cosmos(
+            old_messages=messages,
+            new_message=message.to_dict(),
+            session_state=session_state,
+            id=new_session_state,
+        )
+
+        return [RetrievalResponse(context, index, message, new_session_state)]
 
     def run_keyword(
-        self, messages: list, limit: int, temperature: float, score_threshold: float
+        self, session_state: str | None, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
         keyword_response = None
+
+        new_session_state: str = session_state if session_state else str(uuid4())
+
         if keyword_response is None or len(keyword_response) == 0:
             return [
                 RetrievalResponse(
+                    session_state=new_session_state,
                     context=Context(DataPoint([JSONDataPoint()]), [Thought()]),
                     index=0,
                     message=Message(content="No results found", role="assistant"),

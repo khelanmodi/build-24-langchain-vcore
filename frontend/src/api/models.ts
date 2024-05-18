@@ -43,6 +43,7 @@ export type ResponseChoice = {
     index: number;
     message: ResponseMessage;
     context: ResponseContext;
+    session_state: string;
 };
 
 export type ChatAppResponseOrError = {
@@ -61,4 +62,5 @@ export type ChatAppRequestContext = {
 export type ChatAppRequest = {
     messages: ResponseMessage[];
     context?: ChatAppRequestContext;
+    session_state: string | null;
 };
