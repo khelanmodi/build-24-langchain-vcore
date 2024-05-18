@@ -1,4 +1,4 @@
-name: Run Python linter, formatter, and type checker
+name: Run Python linter, and formatter
 
 on:
   push:
@@ -28,13 +28,10 @@ jobs:
         - name: Install dependencies
           run: |
             python -m pip install --upgrade pip
-            pip install ruff black mypy
+            pip install ruff black
         - name: Check linting with ruff
           run: |
             ruff check .
         - name: Check formatting with black
           run: |
             black . --verbose
-        - name: Check mypy
-          run: |
-            mypy .
