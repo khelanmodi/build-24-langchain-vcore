@@ -8,6 +8,7 @@ dependencies = [
     "Hypercorn",
     "langchain",
     "langchain-openai",
+    "langchain-community",
     "pymongo"
     ]
 
