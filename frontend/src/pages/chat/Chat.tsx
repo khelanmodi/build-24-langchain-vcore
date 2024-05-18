@@ -33,6 +33,7 @@ const Chat = () => {
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
     const [answers, setAnswers] = useState<[user: string, response: ChatAppResponse][]>([]);
+    const [sessionState, setSessionState] = useState<string | null>(null);
 
     const checkthenMakeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
@@ -65,7 +66,8 @@ const Chat = () => {
                         score_threshold: scoreThreshold,
                         retrieval_mode: retrievalMode
                     }
-                }
+                },
+                session_state: sessionState ? sessionState : null
             };
 
             const response = await chatApi(request);
@@ -77,6 +79,7 @@ const Chat = () => {
                 throw Error(parsedResponse.error || "Unknown error");
             }
             setAnswers([...answers, [question, parsedResponse as ChatAppResponse]]);
+            setSessionState(parsedResponse?.choices ? parsedResponse.choices[0].session_state : null);
         } catch (e) {
             setError(e);
         } finally {
