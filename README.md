@@ -24,6 +24,21 @@ urlFragment: build-24-langchain-vcore
 
 ## How to use?
 
+1. Create the following resources on Microsoft Azure:
+
+    - Azure Cosmos DB for MongoDB vCore cluster. See the [Quick Start guide here](https://techcommunity.microsoft.com/t5/educator-developer-blog/build-rag-chat-app-using-azure-cosmos-db-for-mongodb-vcore-and/ba-p/4055852#:~:text=RAG%20Chat%20Application-,Step%201%3A%20Create%20an%20Azure%20Cosmos%20DB%20for%20MongoDB%20vCore%20Cluster,-In%20this%20step).
+    - Azure OpenAI resource with:
+        - Embedding model deployment. (ex. `text-embedding-ada-002`) See the [guide here](https://techcommunity.microsoft.com/t5/educator-developer-blog/build-rag-chat-app-using-azure-cosmos-db-for-mongodb-vcore-and/ba-p/4055852#:~:text=to%20it%20later.-,Step%202%3A%C2%A0Create%20an%20Azure%20OpenAI%20resource%20and%20Deploy%20chat%20and%20embedding%20Models,-In%20this%20step).
+        - Chat model deployment. (ex. `gpt-35-turbo`)
+
+1. Open the repository in GitHub Codespaces:
+
+    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/john0isaac/rag-semantic-kernel-mongodb-vcore?devcontainer_path=.devcontainer/devcontainer.json)
+
+1. 📝 Start here 👉 [rag-azure-openai-cosmosdb-notebook.ipynb](./rag-azure-openai-cosmosdb-notebook.ipynb)
+
+## Local development
+
 1. **Download the project starter code locally**
 
     ```bash
