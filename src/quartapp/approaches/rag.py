@@ -37,11 +37,11 @@ class RAG(ApproachesBase):
         # Rephrase the question
         rephrased_question_prompt = history_chain.invoke(messages)
 
-        rephrased_question = self._chat.invoke(rephrased_question_prompt.to_json()["kwargs"]["messages"][0].content)
+        rephrased_question = self._chat.invoke(rephrased_question_prompt.to_json()["kwargs"]["messages"][0].content)  # type: ignore [typeddict-item]
 
         print(rephrased_question.content)
         # Perform vector search
-        vector_context = retriever.invoke(rephrased_question.content)
+        vector_context = retriever.invoke(rephrased_question.content)  # type: ignore [arg-type]
 
         # Create a vector context aware chat retriever
         context_prompt_template = ChatPromptTemplate.from_template(context_prompt)
