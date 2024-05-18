@@ -1,4 +1,4 @@
-name: Run Python Static Analysis
+name: Python Static Analysis
 
 on:
   push:

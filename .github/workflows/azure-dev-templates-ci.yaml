@@ -1,4 +1,4 @@
-name: Validate AZD template
+name: AZD templates CI
 on:
   push:
     branches: [ main ]
