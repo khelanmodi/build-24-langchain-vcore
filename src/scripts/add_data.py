@@ -6,8 +6,8 @@ import os
 from argparse import ArgumentParser, Namespace
 
 from langchain.docstore.document import Document
-from langchain.vectorstores.azure_cosmos_db import AzureCosmosDBVectorSearch
 from langchain_community.vectorstores.azure_cosmos_db import (
+    AzureCosmosDBVectorSearch,
     CosmosDBSimilarityType,
     CosmosDBVectorSearchType,
 )
@@ -42,14 +42,14 @@ def read_data(file_path) -> list[Document]:
     return documents
 
 
-def create_collection_with_embeddings(
+async def create_collection_with_embeddings(
     documents: list[Document],
     collection: Collection,
     index_name: str,
     embeddings: AzureOpenAIEmbeddings,
 ) -> AzureCosmosDBVectorSearch:
     # Create embeddings from the data, save to the database and return a connection to MongoDB vCore
-    return AzureCosmosDBVectorSearch.from_documents(
+    return await AzureCosmosDBVectorSearch.afrom_documents(
         documents=documents,
         embedding=embeddings,
         collection=collection,
@@ -67,8 +67,11 @@ async def add_data(input_args: Namespace) -> None:
 
     collection: Collection = db[setup._database_setup._collection_name]
 
-    vector_store = create_collection_with_embeddings(
-        documents, collection, setup._database_setup._index_name, setup._openai_setup._embeddings_api
+    vector_store = await create_collection_with_embeddings(
+        documents=documents,
+        collection=collection,
+        index_name=setup._database_setup._index_name,
+        embeddings=setup._openai_setup._embeddings_api,
     )
 
     logging.info("✨ Successfully Created the Collection, Embeddings and Added the Data the Collection...")
@@ -82,9 +85,9 @@ async def add_data(input_args: Namespace) -> None:
     ef_construction = 64
 
     # Create the index overt the collection
-    vector_store.create_index(num_lists, dimensions, similarity_algorithm, kind, m, ef_construction)
+    index_creation = vector_store.create_index(num_lists, dimensions, similarity_algorithm, kind, m, ef_construction)
 
-    logging.info("✨ Successfully Created the HNSW Index Over the data...")
+    logging.info(f"✨ Successfully Created the HNSW Index Over the data...{index_creation}")
     logging.info("✅✅ Done! ✅✅")
 
 
