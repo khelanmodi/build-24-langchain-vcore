@@ -2,10 +2,10 @@
 line-length = 120
 lint.select = ["E", "F", "I", "UP"]
 target-version = "py312"
-src = ["app/backend"]
+src = ["src/quartapp"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["backend"]
+known-first-party = ["quartapp"]
 
 [tool.black]
 line-length = 120
@@ -19,7 +19,7 @@ exclude = [".venv/*"]
 [tool.pytest.ini_options]
 addopts = "-ra --cov"
 testpaths = ["tests"]
-pythonpath = ['app/backend']
+pythonpath = ['src']
 filterwarnings = ["ignore::DeprecationWarning"]
 
 [tool.coverage.report]

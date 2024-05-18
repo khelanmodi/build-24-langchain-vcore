@@ -14,6 +14,7 @@ from langchain_community.vectorstores.azure_cosmos_db import (
 from langchain_openai import AzureOpenAIEmbeddings
 from pymongo import MongoClient
 from pymongo.collection import Collection
+
 from quartapp.approaches.setup import Setup
 from quartapp.config import AppConfig
 

@@ -7,7 +7,8 @@ dependencies = [
     "python-dotenv",
     "Hypercorn",
     "langchain",
-    "langchain_openai",
+    "langchain-openai",
+    "langchain-community",
     "pymongo"
     ]
 
@@ -16,6 +17,7 @@ dev = [
     "ipykernel",
     "pytest",
     "pytest-cov",
+    "pytest-asyncio",
     "pip-tools",
     "pre-commit",
     "ruff",
