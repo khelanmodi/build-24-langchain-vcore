@@ -184,7 +184,7 @@ const Chat = () => {
                     <div className={styles.chatInput}>
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. Are there any high protein recipes available?)"
+                            placeholder="Type a new question (e.g. Are there any high protein dishes available?)"
                             disabled={isLoading}
                             onSend={question => checkthenMakeApiRequest(question)}
                         />

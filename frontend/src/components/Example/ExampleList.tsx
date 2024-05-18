@@ -2,7 +2,7 @@ import { Example } from "./Example";
 
 import styles from "./Example.module.css";
 
-const DEFAULT_EXAMPLES: string[] = ["Looking for dinner inspiration?", "What high-protein recipes are available?", "Tell me a joke!"];
+const DEFAULT_EXAMPLES: string[] = ["Looking for dinner inspiration?", "What high-protein dishes are available?", "Tell me a joke!"];
 
 interface Props {
     onExampleClicked: (value: string) => void;
