@@ -88,13 +88,13 @@ jsonpatch==1.33
     # via langchain-core
 jsonpointer==2.4
     # via jsonpatch
-langchain==0.1.20
+langchain==0.2.0
     # via quartapp (src/pyproject.toml)
-langchain-community==0.0.38
+langchain-community==0.2.0
     # via
     #   langchain
     #   quartapp (src/pyproject.toml)
-langchain-core==0.1.52
+langchain-core==0.2.0
     # via
     #   langchain
     #   langchain-community
@@ -102,7 +102,7 @@ langchain-core==0.1.52
     #   langchain-text-splitters
 langchain-openai==0.1.7
     # via quartapp (src/pyproject.toml)
-langchain-text-splitters==0.0.2
+langchain-text-splitters==0.2.0
     # via langchain
 langsmith==0.1.59
     # via
