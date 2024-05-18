@@ -35,6 +35,16 @@ class AppConfig:
             azure_endpoint=azure_endpoint,
         )
 
+    def add_to_cosmos(self, old_messages: list, new_message: dict, session_state: str | None, id: str) -> None:
+        is_first_message: bool = True if not session_state else False
+        if is_first_message:
+            old_messages.append(new_message)
+            self.setup._database_setup._users_collection.insert_one({"_id": id, "messages": old_messages})
+            return
+        self.setup._database_setup._users_collection.update_one({"_id": id}, {"$push": {"messages": old_messages[-1]}})
+        self.setup._database_setup._users_collection.update_one({"_id": id}, {"$push": {"messages": new_message}})
+        return
+
     def run_vector(
         self, session_state: str | None, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
@@ -81,6 +91,13 @@ class AppConfig:
         index: int = vector_response[0].metadata.get("seq_num", 0)
         message: Message = Message(content=message_content, role="assistant")
 
+        self.add_to_cosmos(
+            old_messages=messages,
+            new_message=message.to_dict(),
+            session_state=session_state,
+            id=new_session_state,
+        )
+
         return [RetrievalResponse(context, index, message, new_session_state)]
 
     def run_rag(
@@ -119,6 +136,13 @@ class AppConfig:
 
         index: int = rag_response[0].metadata.get("seq_num", 0)
         message: Message = Message(content=answer, role="assistant")
+
+        self.add_to_cosmos(
+            old_messages=messages,
+            new_message=message.to_dict(),
+            session_state=session_state,
+            id=new_session_state,
+        )
 
         return [RetrievalResponse(context, index, message, new_session_state)]
 
