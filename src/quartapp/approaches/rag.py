@@ -3,7 +3,6 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_core.documents import Document
 
 from quartapp.approaches.base import ApproachesBase
-from quartapp.approaches.utils import vector_store_api
 
 chat_history_prompt = """Given the following conversation and the last question as a follow up question,
 rephrase the follow up question to be a standalone question.
@@ -25,11 +24,7 @@ Question: {input}"""
 class RAG(ApproachesBase):
     def run(self, messages: list, temperature: float, limit: int, score_threshold: float) -> tuple[list[Document], str]:
         # Create a vector store retriever
-        namespace = f"{self._database_name}.{self._collection_name}"
-        vector_store = vector_store_api(
-            namespace=namespace, connection_string=self._connection_string, embedding=self._embedding
-        )
-        retriever = vector_store.as_retriever(
+        retriever = self._vector_store.as_retriever(
             search_type="similarity", search_kwargs={"k": limit, "score_threshold": score_threshold}
         )
 
