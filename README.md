@@ -35,7 +35,7 @@ urlFragment: build-24-langchain-vcore
 
     [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/khelanmodi/build-24-langchain-vcore?devcontainer_path=.devcontainer/devcontainer.json)
 
-1. 📝 Start here 👉 [rag-azure-openai-cosmosdb-notebook.ipynb](./rag-azure-openai-cosmosdb-notebook.ipynb)
+1. 📝 Start here 👉 [CBD_Mongo_vCore.ipynb](./CBD_Mongo_vCore.ipynb)
 
 ## Local development
 
