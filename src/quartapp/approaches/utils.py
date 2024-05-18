@@ -1,6 +1,8 @@
 from langchain_community.vectorstores import AzureCosmosDBVectorSearch
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from pydantic.v1 import SecretStr
+from pymongo import MongoClient
+from pymongo.collection import Collection
 
 
 def embeddings_api(
@@ -39,3 +41,10 @@ def vector_store_api(
         namespace=namespace,
         embedding=embedding,
     )
+
+
+def setup_users_collection(connection_string: str, database_name: str) -> Collection:
+    mongo_client: MongoClient = MongoClient(connection_string)
+    db = mongo_client[database_name]
+    collection: Collection = db["Users"]
+    return collection
