@@ -170,7 +170,13 @@ const Chat = () => {
                             )}
                             {isBuy ? (
                                 <>
-                                    <BuyModal isBuy={isBuy} setIsBuy={setIsBuy} address={address} setAddress={setAddress} />
+                                    <BuyModal
+                                        isBuy={isBuy}
+                                        setIsBuy={setIsBuy}
+                                        address={address}
+                                        setAddress={setAddress}
+                                        latestItems={answers.length ? answers[0][1].choices[0].context.data_points.json : []}
+                                    />
                                 </>
                             ) : null}
                             {error ? (

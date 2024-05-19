@@ -1,9 +1,9 @@
 .buyContainer {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 50px;
+    width: 100%;
 }
 
 .buyMessage {
@@ -27,4 +27,8 @@
         0px 2px 4px rgba(0, 0, 0, 0.14),
         0px 0px 2px rgba(0, 0, 0, 0.12);
     outline: transparent solid 1px;
+}
+
+.modalTitle {
+    text-align: center;
 }

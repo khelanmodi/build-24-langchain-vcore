@@ -1,17 +1,21 @@
 import { useState } from "react";
 
-import { Modal, IconButton, DefaultButton, TextField } from "@fluentui/react";
+import { Modal, IconButton, DefaultButton, TextField, Dropdown, IDropdownOption } from "@fluentui/react";
 
 import styles from "./BuyModal.module.css";
+import { JSONDataPoint } from "../../api";
 
 interface Props {
     isBuy: boolean;
     setIsBuy: (isBuy: boolean) => void;
     address: string;
     setAddress: (address: string) => void;
+    latestItems: JSONDataPoint[];
 }
 
-export const BuyModal = ({ setIsBuy, setAddress, isBuy, address }: Props) => {
+export const BuyModal = ({ setIsBuy, setAddress, isBuy, address, latestItems }: Props) => {
+    const [buyItem, setBuyItem] = useState<string>("");
+
     const onAddressChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         if (!newValue) {
             setAddress("");
@@ -20,10 +24,38 @@ export const BuyModal = ({ setIsBuy, setAddress, isBuy, address }: Props) => {
         }
     };
 
+    const onItemChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<string> | undefined) => {
+        setBuyItem(option?.data || "");
+    };
+
+    const labelWithCollection: string = `Selected Item to Buy from ${latestItems[0].collection}`;
+
     return (
         <Modal className={styles.buyContainer} isOpen={isBuy} onDismiss={() => setIsBuy(false)} isBlocking={true}>
             <div>
                 <IconButton iconProps={{ iconName: "Cancel" }} ariaLabel="Close popup modal" onClick={() => setIsBuy(false)} />
+
+                <div className={styles.buyContainer}>
+                    <div className={styles.modalTitle}>
+                        <h1>Confirm Selection</h1>
+                    </div>
+                </div>
+                <div className={styles.buyContainer}>
+                    <Dropdown
+                        className={styles.buyInput}
+                        label={labelWithCollection}
+                        ariaLabel="Selected Item to Buy"
+                        placeholder="Select an item to buy"
+                        options={latestItems.flatMap((c, ind) => {
+                            const option: IDropdownOption[] = [];
+                            const parsed: string = `${c.price} - ${c.name}`;
+                            option.push({ key: ind, text: parsed, data: parsed, selected: buyItem == parsed });
+                            return option;
+                        })}
+                        required
+                        onChange={onItemChange}
+                    />
+                </div>
                 <div className={styles.buyContainer}>
                     <div className={styles.buyMessage}>Enter your address:</div>
                 </div>
