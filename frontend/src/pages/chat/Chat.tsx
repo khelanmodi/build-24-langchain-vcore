@@ -11,12 +11,14 @@ import { ExampleList } from "../../components/Example";
 import { UserChatMessage } from "../../components/UserChatMessage";
 import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel";
 import { SettingsButton } from "../../components/SettingsButton";
+import { CartButton } from "../../components/CartButton";
 import { ClearChatButton } from "../../components/ClearChatButton";
 import { VectorSettings } from "../../components/VectorSettings";
 import { BuyModal } from "../../components/BuyModal";
 
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
+    const [isCartOpen, setIsCartOpen] = useState(false);
     const [temperature, setTemperature] = useState<number>(0.3);
     const [retrieveCount, setRetrieveCount] = useState<number>(3);
     const [scoreThreshold, setScoreThreshold] = useState<number>(0.5);
@@ -27,6 +29,7 @@ const Chat = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isBuy, setIsBuy] = useState<boolean>(false);
     const [address, setAddress] = useState<string>("");
+    const [cartItems, setCartItems] = useState<string[]>([]);
     const [error, setError] = useState<unknown>();
 
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
@@ -132,6 +135,7 @@ const Chat = () => {
     return (
         <div className={styles.container}>
             <div className={styles.commandsContainer}>
+                <CartButton className={styles.commandButton} onClick={() => setIsCartOpen(!isCartOpen)} />
                 <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
                 <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
             </div>
@@ -170,7 +174,15 @@ const Chat = () => {
                             )}
                             {isBuy ? (
                                 <>
-                                    <BuyModal isBuy={isBuy} setIsBuy={setIsBuy} address={address} setAddress={setAddress} />
+                                    <BuyModal
+                                        isBuy={isBuy}
+                                        setIsBuy={setIsBuy}
+                                        address={address}
+                                        setAddress={setAddress}
+                                        latestItems={answers.length ? answers[0][1].choices[0].context.data_points.json : []}
+                                        cartItems={cartItems}
+                                        setCartItems={setCartItems}
+                                    />
                                 </>
                             ) : null}
                             {error ? (
@@ -203,6 +215,21 @@ const Chat = () => {
                     />
                 )}
 
+                <Panel
+                    headerText="Cart Items"
+                    isOpen={isCartOpen}
+                    isBlocking={false}
+                    onDismiss={() => setIsCartOpen(false)}
+                    closeButtonAriaLabel="Close"
+                    onRenderFooterContent={() => <DefaultButton onClick={() => setIsCartOpen(false)}>Close</DefaultButton>}
+                    isFooterAtBottom={true}
+                >
+                    <div>
+                        {cartItems.map((item, index) => (
+                            <h4 key={index}>- {item}</h4>
+                        ))}
+                    </div>
+                </Panel>
                 <Panel
                     headerText="Configure answer generation"
                     isOpen={isConfigPanelOpen}
