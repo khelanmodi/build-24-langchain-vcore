@@ -11,10 +11,13 @@ interface Props {
     address: string;
     setAddress: (address: string) => void;
     latestItems: JSONDataPoint[];
+    cartItems: string[];
+    setCartItems: (cartItems: string[]) => void;
 }
 
-export const BuyModal = ({ setIsBuy, setAddress, isBuy, address, latestItems }: Props) => {
+export const BuyModal = ({ setIsBuy, setAddress, isBuy, address, latestItems, cartItems, setCartItems }: Props) => {
     const [buyItem, setBuyItem] = useState<string>("");
+    const [lastItem, setLastItem] = useState<string>("");
 
     const onAddressChange = (_ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         if (!newValue) {
@@ -26,8 +29,17 @@ export const BuyModal = ({ setIsBuy, setAddress, isBuy, address, latestItems }: 
 
     const onItemChange = (_ev: React.FormEvent<HTMLDivElement>, option?: IDropdownOption<string> | undefined) => {
         setBuyItem(option?.data || "");
+        if (option?.data && option.data && option.data.length > 0) {
+            setLastItem(option.data);
+        }
     };
 
+    const updateItems = () => {
+        if (lastItem && lastItem.length > 0) {
+            setCartItems([...cartItems, lastItem]);
+        }
+        setIsBuy(false);
+    };
     const labelWithCollection: string = `Selected Item to Buy from ${latestItems[0].collection}`;
 
     return (
@@ -63,7 +75,7 @@ export const BuyModal = ({ setIsBuy, setAddress, isBuy, address, latestItems }: 
                     <TextField className={styles.buyInput} value={address} onChange={onAddressChange} multiline resizable={false} borderless />
                 </div>
                 <div className={styles.buyContainer}>
-                    <DefaultButton className={styles.buyMessage} onClick={() => setIsBuy(false)}>
+                    <DefaultButton className={styles.buyMessage} onClick={updateItems}>
                         Buy Now?
                     </DefaultButton>
                 </div>
