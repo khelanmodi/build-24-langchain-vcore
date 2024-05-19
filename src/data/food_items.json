@@ -151,12 +151,6 @@
     },
     {
         "category": "Salad",
-        "name": "Salad",
-        "description": "Not your typical bowl of greens. Pile your favorite ingredients on a bed of chopped romaine, and your choice of protein (including organic tofu). Top it off with chipotle ranch or southwest vinaigrette. ",
-        "price": "0.0 USD"
-    },
-    {
-        "category": "Salad",
         "name": "Cobb Salad",
         "description": "Grilled chicken, tomato, bacon, crumbled bleu cheese, egg, and seasoned croutons served over lettuce with your choice of dressing.",
         "price": "12.99 USD"
