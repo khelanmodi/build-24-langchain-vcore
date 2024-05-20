@@ -130,7 +130,7 @@ openai==1.30.1
     # via langchain-openai
 orjson==3.10.3
     # via langsmith
-packaging==23.2
+packaging==24.0
     # via
     #   langchain-core
     #   marshmallow
@@ -153,7 +153,7 @@ pyyaml==6.0.1
     #   langchain
     #   langchain-community
     #   langchain-core
-quart==0.19.5
+quart==0.19.6
     # via quartapp (src/pyproject.toml)
 regex==2024.5.15
     # via tiktoken
