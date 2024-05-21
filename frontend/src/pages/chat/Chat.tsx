@@ -4,7 +4,7 @@ import cosmos from "../../assets/FeaturedDefault.png";
 
 import styles from "./Chat.module.css";
 
-import { chatApi, RetrievalMode, ChatAppResponse, ChatAppResponseOrError, ChatAppRequest, ResponseMessage } from "../../api";
+import { chatApi, RetrievalMode, ChatAppResponse, ChatAppResponseOrError, ChatAppRequest, ResponseMessage, JSONDataPoint } from "../../api";
 import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
 import { QuestionInput } from "../../components/QuestionInput";
 import { ExampleList } from "../../components/Example";
@@ -35,6 +35,7 @@ const Chat = () => {
     const [activeAnalysisPanelTab, setActiveAnalysisPanelTab] = useState<AnalysisPanelTabs | undefined>(undefined);
 
     const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
+    const [latestItems, setLatestItems] = useState<JSONDataPoint[]>([]);
     const [answers, setAnswers] = useState<[user: string, response: ChatAppResponse][]>([]);
     const [sessionState, setSessionState] = useState<string | null>(null);
 
@@ -83,6 +84,7 @@ const Chat = () => {
             }
             setAnswers([...answers, [question, parsedResponse as ChatAppResponse]]);
             setSessionState(parsedResponse?.choices ? parsedResponse.choices[0].session_state : null);
+            setLatestItems(parsedResponse?.choices ? parsedResponse.choices[0].context.data_points.json : []);
         } catch (e) {
             setError(e);
         } finally {
@@ -179,7 +181,7 @@ const Chat = () => {
                                         setIsBuy={setIsBuy}
                                         address={address}
                                         setAddress={setAddress}
-                                        latestItems={answers.length ? answers[0][1].choices[0].context.data_points.json : []}
+                                        latestItems={latestItems}
                                         cartItems={cartItems}
                                         setCartItems={setCartItems}
                                     />
