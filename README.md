@@ -20,7 +20,8 @@ urlFragment: build-24-langchain-vcore
 
  A Demo application for a streamlined ordering system tailored for various food categories. It allows users to request customized meals, such as "high protein dishes," with recommendations provided from our database. Users can further customize their choices before sending their orders from the app to the restaurant, including delivery details. A unique feature of our system is its ability to remember user preferences for future orders, using vCore to store that data. With the help of Langchain, this setup can be easily adapted by ISVs with minimal modifications needed for other food chains.
 
-[slide deck](https://microsoft-my.sharepoint.com/:p:/p/khelanmodi/Ecw4bJ6Z9ltOniDMrTa9JcwBvZ0r3QPpMeZU1f-kkwr3OA?e=Ctqexg)
+![image](https://github.com/khelanmodi/build-24-langchain-vcore/assets/64026625/618397af-2ae9-4b44-9d38-d6bd3fe75098)
+
 
 ## How to use?
 
