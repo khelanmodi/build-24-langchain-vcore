@@ -9,7 +9,7 @@ from quartapp.approaches.setup import Setup
 
 
 class AppConfig:
-    def __init__(self):
+    def __init__(self) -> None:
         openai_embeddings_model = os.getenv("AZURE_OPENAI_EMBEDDINGS_MODEL_NAME", "text-embedding-ada-002")
         openai_embeddings_deployment = os.getenv("AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT_NAME", "text-embedding")
         openai_chat_model = os.getenv("AZURE_OPENAI_CHAT_MODEL_NAME", "gpt-35-turbo")

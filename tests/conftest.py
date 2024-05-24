@@ -1,7 +1,7 @@
 import pytest
 import pytest_asyncio
 
-from quartapp import create_app
+from quartapp.app import create_app
 from quartapp.config import AppConfig
 
 

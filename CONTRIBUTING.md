@@ -126,13 +126,13 @@ python3 -m pip install -e 'src[dev]'
 Run `ruff` to lint a file:
 
 ```shell
-python -m ruff <path-to-file>
+python3 -m ruff <path-to-file>
 ```
 
 Run `black` to format a file:
 
 ```shell
-python -m black <path-to-file>
+python3 -m black <path-to-file>
 ```
 
 If you followed the steps above to install the pre-commit hooks, then you can just wait for those hooks to run `ruff` and `black` for you.
