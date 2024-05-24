@@ -22,7 +22,9 @@ Question: {input}"""
 
 
 class RAG(ApproachesBase):
-    def run(self, messages: list, temperature: float, limit: int, score_threshold: float) -> tuple[list[Document], str]:
+    async def run(
+        self, messages: list, temperature: float, limit: int, score_threshold: float
+    ) -> tuple[list[Document], str]:
         # Create a vector store retriever
         retriever = self._vector_store.as_retriever(
             search_type="similarity", search_kwargs={"k": limit, "score_threshold": score_threshold}
@@ -35,13 +37,15 @@ class RAG(ApproachesBase):
         history_chain = self._chat | history_prompt_template
 
         # Rephrase the question
-        rephrased_question_prompt = history_chain.invoke(messages)
+        rephrased_question_prompt = await history_chain.ainvoke(messages)
 
-        rephrased_question = self._chat.invoke(rephrased_question_prompt.to_json()["kwargs"]["messages"][0].content)  # type: ignore [typeddict-item]
+        rephrased_question = await self._chat.ainvoke(
+            rephrased_question_prompt.to_json()["kwargs"]["messages"][0].content  # type: ignore [typeddict-item]
+        )
 
         print(rephrased_question.content)
         # Perform vector search
-        vector_context = retriever.invoke(rephrased_question.content)  # type: ignore [arg-type]
+        vector_context = await retriever.ainvoke(rephrased_question.content)  # type: ignore [arg-type]
 
         # Create a vector context aware chat retriever
         context_prompt_template = ChatPromptTemplate.from_template(context_prompt)
@@ -51,10 +55,10 @@ class RAG(ApproachesBase):
 
         if vector_context:
             # Perform RAG search
-            response = document_chain.invoke({"context": vector_context, "input": rephrased_question.content})
+            response = await document_chain.ainvoke({"context": vector_context, "input": rephrased_question.content})
 
             return vector_context, response
 
         # Perform RAG search with no context
-        response = document_chain.invoke({"context": vector_context, "input": rephrased_question.content})
+        response = await document_chain.ainvoke({"context": vector_context, "input": rephrased_question.content})
         return [], response
