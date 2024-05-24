@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pytest
 from quart import Response
 
@@ -8,7 +6,7 @@ from quart import Response
 async def test_index(client):
     response: Response = await client.get("/")
 
-    html_index_file_path = Path("./src/quartapp/static/index.html").resolve().absolute()
+    html_index_file_path = "src/quartapp/static/index.html"
     with open(html_index_file_path, "rb") as f:
         html_index_file = f.read()
 
@@ -32,7 +30,7 @@ async def test_hello(client):
 async def test_favicon(client):
     response: Response = await client.get("/favicon.ico")
 
-    favicon_file_path = Path("./src/quartapp/static/favicon.ico").resolve().absolute()
+    favicon_file_path = "src/quartapp/static/favicon.ico"
     with open(favicon_file_path, "rb") as f:
         favicon_file = f.read()
 
