@@ -51,7 +51,7 @@ def create_app(app_config: AppConfig, test_config=None):
         score_threshold: float = override.get("score_threshold", 0.5)
 
         if retrieval_mode == "vector":
-            vector_answer: list[RetrievalResponse] = app_config.run_vector(
+            vector_answer: list[RetrievalResponse] = await app_config.run_vector(
                 session_state=session_state,
                 messages=messages,
                 temperature=temperature,
@@ -61,7 +61,7 @@ def create_app(app_config: AppConfig, test_config=None):
             return jsonify({"choices": vector_answer})
 
         elif retrieval_mode == "rag":
-            rag_answer: list[RetrievalResponse] = app_config.run_rag(
+            rag_answer: list[RetrievalResponse] = await app_config.run_rag(
                 session_state=session_state,
                 messages=messages,
                 temperature=temperature,
@@ -71,7 +71,7 @@ def create_app(app_config: AppConfig, test_config=None):
             return jsonify({"choices": rag_answer})
 
         elif retrieval_mode == "keyword":
-            keyword_answer: list[RetrievalResponse] = app_config.run_keyword(
+            keyword_answer: list[RetrievalResponse] = await app_config.run_keyword(
                 session_state=session_state,
                 messages=messages,
                 temperature=temperature,

@@ -45,10 +45,10 @@ class AppConfig:
         self.setup._database_setup._users_collection.update_one({"_id": id}, {"$push": {"messages": new_message}})
         return
 
-    def run_vector(
+    async def run_vector(
         self, session_state: str | None, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
-        vector_response, answer = self.setup.vector_search.run(messages, temperature, limit, score_threshold)
+        vector_response, answer = await self.setup.vector_search.run(messages, temperature, limit, score_threshold)
 
         new_session_state: str = session_state if session_state else str(uuid4())
 
@@ -100,10 +100,10 @@ class AppConfig:
 
         return [RetrievalResponse(context, index, message, new_session_state)]
 
-    def run_rag(
+    async def run_rag(
         self, session_state: str | None, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
-        rag_response, answer = self.setup.rag.run(messages, temperature, limit, score_threshold)
+        rag_response, answer = await self.setup.rag.run(messages, temperature, limit, score_threshold)
 
         new_session_state: str = session_state if session_state else str(uuid4())
 
@@ -146,7 +146,7 @@ class AppConfig:
 
         return [RetrievalResponse(context, index, message, new_session_state)]
 
-    def run_keyword(
+    async def run_keyword(
         self, session_state: str | None, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> list[RetrievalResponse]:
         keyword_response = None

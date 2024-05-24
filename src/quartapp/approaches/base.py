@@ -17,5 +17,7 @@ class ApproachesBase(ABC):
         self._chat = chat
 
     @abstractmethod
-    def run(self, messages: list, temperature: float, limit: int, score_threshold: float) -> tuple[list[Document], str]:
+    async def run(
+        self, messages: list, temperature: float, limit: int, score_threshold: float
+    ) -> tuple[list[Document], str]:
         raise NotImplementedError
