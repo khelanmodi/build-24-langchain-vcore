@@ -7,7 +7,7 @@ from quartapp.approaches.schemas import RetrievalResponse
 from quartapp.config import AppConfig
 
 
-def create_app(app_config: AppConfig, test_config=None):
+def create_app(app_config: AppConfig, test_config: dict[str, Any] | None = None) -> Quart:
     app = Quart(__name__, static_folder="static")
 
     if test_config:
@@ -15,16 +15,18 @@ def create_app(app_config: AppConfig, test_config=None):
         app.config.from_mapping(test_config)
 
     @app.route("/")
-    async def index():
+    async def index() -> Any:
         return await send_file(Path(__file__).resolve().parent / "static/index.html")
 
     @app.route("/favicon.ico")
-    async def favicon():
+    async def favicon() -> Any:
         return await send_file(Path(__file__).resolve().parent / "static/favicon.ico")
 
     @app.route("/assets/<path:path>")
-    async def assets(path):
-        return await send_from_directory(Path(__file__).resolve().parent / "static" / "assets", path)
+    async def assets(path: str) -> Any:
+        if (Path(__file__).resolve().parent / "static" / "assets" / path).exists():
+            return await send_from_directory(Path(__file__).resolve().parent / "static" / "assets", path)
+        return jsonify({"error": "Not Found"}), 404
 
     @app.route("/hello", methods=["GET"])
     async def hello() -> Response:
