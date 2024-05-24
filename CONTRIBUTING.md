@@ -20,7 +20,6 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
   - [Submitting a Pull Request (PR)](#submitting-a-pull-request-pr)
 - [Setting up the development environment](#setting-up-the-development-environment)
 - [Running unit tests](#running-unit-tests)
-- [Running E2E tests](#running-e2e-tests)
 - [Code Style](#code-style)
 
 ## Code of Conduct
