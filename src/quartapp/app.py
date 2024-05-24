@@ -40,6 +40,9 @@ def create_app(app_config: AppConfig, test_config: dict[str, Any] | None = None)
         # Get the request body
         body = await request.get_json()
 
+        if not body:
+            return jsonify({"error": "request body is empty"}), 400
+
         # Get the request message, session_state, context from the request body
         messages: list = body.get("messages", [])
         session_state = body.get("session_state", None)
@@ -83,7 +86,7 @@ def create_app(app_config: AppConfig, test_config: dict[str, Any] | None = None)
             return jsonify({"choices": keyword_answer})
 
         else:
-            return jsonify({"error": "Not Implemented!"}), 400
+            return jsonify({"error": "Not Implemented!"}), 501
 
     return app
 

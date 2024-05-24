@@ -58,3 +58,25 @@ async def test_chat_non_json_415(client):
     assert response.content_type == "application/json"
     assert response.headers["Content-Length"] == "33"
     assert b'{"error":"request must be json"}' in await response.data
+
+
+@pytest.mark.asyncio
+async def test_chat_no_message_400(client):
+    response: Response = await client.post("/chat", json={})
+
+    assert response.status_code == 400
+    assert response.content_type == "application/json"
+    assert response.headers["Content-Length"] == "34"
+    assert b'{"error":"request body is empty"}' in await response.data
+
+
+@pytest.mark.asyncio
+async def test_chat_not_implemented_501(client):
+    response: Response = await client.post(
+        "/chat", json={"context": {"overrides": {"retrieval_mode": "not_implemented"}}}
+    )
+
+    assert response.status_code == 501
+    assert response.content_type == "application/json"
+    assert response.headers["Content-Length"] == "29"
+    assert b'{"error":"Not Implemented!"}' in await response.data
