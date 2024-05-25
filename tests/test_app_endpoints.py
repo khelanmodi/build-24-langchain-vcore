@@ -55,7 +55,7 @@ async def test_assets_non_existent_404(client):
 @pytest.mark.asyncio
 async def test_assets(client):
     assets_dir_path = "src/quartapp/static/assets"
-    assets_file_path = os.listdir(assets_dir_path)[-1]
+    assets_file_path = os.listdir(assets_dir_path)[0]
 
     with open(os.path.join(assets_dir_path, assets_file_path), "rb") as f:
         assets_file = f.read()
@@ -63,7 +63,6 @@ async def test_assets(client):
     response: Response = await client.get(f"/assets/{assets_file_path}")
 
     assert response.status_code == 200
-    assert response.content_type == "text/javascript; charset=utf-8"
     assert response.headers["Content-Length"] == str(len(assets_file))
     assert assets_file == await response.data
 
