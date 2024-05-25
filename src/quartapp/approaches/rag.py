@@ -25,40 +25,44 @@ class RAG(ApproachesBase):
     async def run(
         self, messages: list, temperature: float, limit: int, score_threshold: float
     ) -> tuple[list[Document], str]:
-        # Create a vector store retriever
-        retriever = self._vector_store.as_retriever(
-            search_type="similarity", search_kwargs={"k": limit, "score_threshold": score_threshold}
-        )
+        if messages:
+            # Create a vector store retriever
+            retriever = self._vector_store.as_retriever(
+                search_type="similarity", search_kwargs={"k": limit, "score_threshold": score_threshold}
+            )
 
-        self._chat.temperature = 0.3
+            self._chat.temperature = 0.3
 
-        # Create a vector context aware chat retriever
-        history_prompt_template = ChatPromptTemplate.from_template(chat_history_prompt)
-        history_chain = self._chat | history_prompt_template
+            # Create a vector context aware chat retriever
+            history_prompt_template = ChatPromptTemplate.from_template(chat_history_prompt)
+            history_chain = self._chat | history_prompt_template
 
-        # Rephrase the question
-        rephrased_question_prompt = await history_chain.ainvoke(messages)
+            # Rephrase the question
+            rephrased_question_prompt = await history_chain.ainvoke(messages)
 
-        rephrased_question = await self._chat.ainvoke(
-            rephrased_question_prompt.to_json()["kwargs"]["messages"][0].content  # type: ignore [typeddict-item]
-        )
+            rephrased_question = await self._chat.ainvoke(
+                rephrased_question_prompt.to_json()["kwargs"]["messages"][0].content  # type: ignore [typeddict-item]
+            )
 
-        print(rephrased_question.content)
-        # Perform vector search
-        vector_context = await retriever.ainvoke(rephrased_question.content)  # type: ignore [arg-type]
+            print(rephrased_question.content)
+            # Perform vector search
+            vector_context = await retriever.ainvoke(rephrased_question.content)  # type: ignore [arg-type]
 
-        # Create a vector context aware chat retriever
-        context_prompt_template = ChatPromptTemplate.from_template(context_prompt)
-        document_chain = create_stuff_documents_chain(self._chat, context_prompt_template)
+            # Create a vector context aware chat retriever
+            context_prompt_template = ChatPromptTemplate.from_template(context_prompt)
+            document_chain = create_stuff_documents_chain(self._chat, context_prompt_template)
 
-        self._chat.temperature = temperature
+            self._chat.temperature = temperature
 
-        if vector_context:
-            # Perform RAG search
+            if vector_context:
+                # Perform RAG search
+                response = await document_chain.ainvoke(
+                    {"context": vector_context, "input": rephrased_question.content}
+                )
+
+                return vector_context, response
+
+            # Perform RAG search with no context
             response = await document_chain.ainvoke({"context": vector_context, "input": rephrased_question.content})
-
-            return vector_context, response
-
-        # Perform RAG search with no context
-        response = await document_chain.ainvoke({"context": vector_context, "input": rephrased_question.content})
-        return [], response
+            return [], response
+        return [], ""
