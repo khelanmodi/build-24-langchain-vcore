@@ -7,6 +7,7 @@ import styles from "./Answer.module.css";
 import { ChatAppResponse } from "../../api";
 import { parseAnswerToHtml } from "./AnswerParser";
 import { AnswerIcon } from "./AnswerIcon";
+import { SpeechOutput } from "./SpeechOutput";
 
 interface Props {
     answer: ChatAppResponse;
@@ -43,6 +44,7 @@ export const Answer = ({ answer, isSelected, onThoughtProcessClicked, onSupporti
                             onClick={() => onSupportingContentClicked()}
                             disabled={!answer.choices[0].context.data_points}
                         />
+                        <SpeechOutput answer={sanitizedAnswerHtml} />
                     </div>
                 </Stack>
             </Stack.Item>
