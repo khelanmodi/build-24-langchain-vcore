@@ -1,3 +1,5 @@
+> [!IMPORTANT]
+> Cosmic Food with Azure OpenAI and Azure Cosmos DB for MongoDB vCore is now the **Cosmic Food RAG App**! This project will now be maintained at https://github.com/Azure-Samples/Cosmic-Food-RAG-app
 ---
 name: Cosmic Food with Azure OpenAI and Azure Cosmos DB for MongoDB vCore
 description: A Demo application for a streamlined ordering system tailored for various food categories. It allows users to request customized meals, such as "high protein dishes," with recommendations provided from our database. Users can further customize their choices before sending their orders from the app to the restaurant, including delivery details.
